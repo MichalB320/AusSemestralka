@@ -1,6 +1,5 @@
 #pragma once
 #include "UzemnaJednotka.h"
-#include <iostream>
 
 class Okres : public UzemnaJednotka
 {
@@ -62,8 +61,6 @@ public:
 	virtual ~Okres() 
 	{
 		nazov_ = "";
-
-		//std::cout << "mazem okres" << std::endl;
 
 		sortNumber_ = "";
 		code_ = "";

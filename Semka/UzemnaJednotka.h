@@ -25,16 +25,6 @@ public:
 	//UzemnaJednotka(std::string nazov) : nazov_(nazov) {}
 	//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
 
-	/*
-	std::string getSortNumber();
-	std::string getCode();
-	std::string getOfficialTitle();
-	std::string getMediumTitle();
-	std::string getShortTitle();
-	std::string getNote();
-	std::string getSome() { return "55"; }
-	*/
-
 	virtual ~UzemnaJednotka() {	}
 };
 

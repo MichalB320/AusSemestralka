@@ -1,7 +1,6 @@
 #pragma once
 #include "UzemnaJednotka.h"
 #include <string>
-#include <iostream>
 
 class Slovensko : public UzemnaJednotka
 {
@@ -42,8 +41,6 @@ public:
 	virtual ~Slovensko() 
 	{
 		nazov_ = "";
-
-		//std::cout << "mazem stat" << std::endl;
 
 		sortNumber_ = "";
 		code_ = "";

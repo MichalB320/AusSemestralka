@@ -1,6 +1,5 @@
 #pragma once
 #include "UzemnaJednotka.h"
-#include <iostream>
 
 class Obec : public UzemnaJednotka
 {
@@ -62,8 +61,6 @@ public:
 	virtual ~Obec() 
 	{
 		nazov_ = "";
-
-		//std::cout << "mazem obec" << std::endl;
 
 		sortNumber_ = "";
 		code_ = "";

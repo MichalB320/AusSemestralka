@@ -53,12 +53,14 @@ public:
 	void contains(int level, std::string& contains);
 	void hasType();
 	void iterator();
+	void iter();
 
 	//void vectorPP(Kraj jednotka) { jednotky_->push_back(jednotka); }
 
 	~IS()
 	{
 		hierarchia_->processPostOrder(hierarchia_->accessRoot(), [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::cout << uj->data_->getOfficialTitle() << std::endl;
 			delete uj->data_;
 		});
 		
