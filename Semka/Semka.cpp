@@ -8,6 +8,7 @@
 #include "IS.h"
 #include "libds/heap_monitor.h"
 #include <Windows.h>
+#include "Citac.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

@@ -1,6 +1,5 @@
 #pragma once
 #include "UzemnaJednotka.h"
-#include <string>
 
 class Slovensko : public UzemnaJednotka
 {

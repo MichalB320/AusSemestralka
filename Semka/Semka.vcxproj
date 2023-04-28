@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Citac.cpp" />
     <ClCompile Include="Hierar.cpp" />
     <ClCompile Include="IS.cpp" />
     <ClCompile Include="Kraj.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="Slovensko.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Citac.h" />
     <ClInclude Include="Hierar.h" />
     <ClInclude Include="IS.h" />
     <ClInclude Include="Kraj.h" />

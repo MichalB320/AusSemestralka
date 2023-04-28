@@ -3,47 +3,26 @@
 #include "Kraj.h"
 #include "Okres.h"
 #include "libds/amt/explicit_hierarchy.h"
+#include "Citac.h"
 #include <libds/amt/hierarchy.h>
 
 class IS
 {
 private: 
-	std::vector<UzemnaJednotka*>* jednotky_;
-	std::vector<UzemnaJednotka*>* okresy_;
-	std::vector<UzemnaJednotka*>* obce_;
+	ds::amt::ImplicitSequence<UzemnaJednotka*>* kraje_;
+	ds::amt::ImplicitSequence<UzemnaJednotka*>* okresy_;
+	ds::amt::ImplicitSequence<UzemnaJednotka*>* obce_;
 	ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>* hierarchia_;
-	
-	int kraj_;
-	int okres_;
-	int ba_;
-	int tt_;
-	int nr_;
-	int tn_;
-	int za_;
-	int bb_;
-	int ps_;
-	int ke_;
-	int o_;
-	int obec_;
 public:
-	IS() {
-		jednotky_ = new std::vector<UzemnaJednotka*>();
-		okresy_ = new std::vector<UzemnaJednotka*>();
-		obce_ = new std::vector<UzemnaJednotka*>();
+	IS() 
+	{
+		kraje_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
+		okresy_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
+		obce_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
 		hierarchia_ = new ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>();
-		
-		/*kraj_ = 0;
-		okres_ = 0;
-		ba_ = 0;
-		tt_ = 0;
-		nr_ = 0;
-		tn_ = 0;
-		za_ = 0;
-		bb_ = 0;
-		ps_ = 0;
-		ke_ = 0;
-		o_ = 0;
-		obec_ = 0;*/
+
+		Citac citac;
+		citac.nacitaj(kraje_, okresy_, obce_);
 	}
 
 
@@ -75,13 +54,13 @@ public:
 
 		obce_->clear();
 		okresy_->clear();
-		jednotky_->clear();
+		//jednotky_->clear();
 
 		delete hierarchia_;
 		//std::cout << obce_->at(0)->getOfficialTitle() << std::endl;
 		delete obce_;
 		delete okresy_;
-		delete jednotky_;
+		//delete jednotky_;
 	}
 private :
 	void vlozKraj(int index);

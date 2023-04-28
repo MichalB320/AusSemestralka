@@ -6,115 +6,115 @@
 
 void IS::nacitajJednotky()
 {
-	hierarchia_->emplaceRoot().data_ = new Slovensko();
-	int jednotka = 0;
+	//hierarchia_->emplaceRoot().data_ = new Slovensko();
+	//int jednotka = 0;
 
-	std::ifstream citac;
+	//std::ifstream citac;
 
-	citac.open("C:\\Users\\micha\\Downloads\\kraje_test.csv");
+	//citac.open("C:\\Users\\micha\\Downloads\\kraje_test.csv");
 
-	if (citac.is_open())
-	{
-		//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
-		std::string sortNumber = " ";
-		std::string code = u8" ";
-		std::string officialTitle = u8" ";
-		std::string mediumTitle = u8" ";
-		std::string shortTitle = u8" ";
-		std::string note = u8" ";
+	//if (citac.is_open())
+	//{
+	//	//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
+	//	std::string sortNumber = " ";
+	//	std::string code = u8" ";
+	//	std::string officialTitle = u8" ";
+	//	std::string mediumTitle = u8" ";
+	//	std::string shortTitle = u8" ";
+	//	std::string note = u8" ";
 
-		std::string riadok;
+	//	std::string riadok;
 
-		getline(citac, riadok);
+	//	getline(citac, riadok);
 
-		while (!citac.eof())
-		{
-			getline(citac, sortNumber, ';');
-			getline(citac, code, ';');
-			getline(citac, officialTitle, ';');
-			getline(citac, mediumTitle, ';');
-			getline(citac, shortTitle, ';');
-			getline(citac, note);
-			
-			//Kraj *kraj = new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
-			jednotky_->push_back(new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note));
-			//jednotky_->push_back(kraj);
-		}
-	}
-	citac.close();
-	delete jednotky_->back();
-	jednotky_->pop_back();
+	//	while (!citac.eof())
+	//	{
+	//		getline(citac, sortNumber, ';');
+	//		getline(citac, code, ';');
+	//		getline(citac, officialTitle, ';');
+	//		getline(citac, mediumTitle, ';');
+	//		getline(citac, shortTitle, ';');
+	//		getline(citac, note);
+
+	//		//Kraj *kraj = new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+	//		jednotky_->push_back(new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note));
+	//		//jednotky_->push_back(kraj);
+	//	}
+	//}
+	//citac.close();
+	//delete jednotky_->back();
+	//jednotky_->pop_back();
 
 
-	citac.open("C:\\Users\\micha\\Downloads\\okresy_test.csv");
+	//citac.open("C:\\Users\\micha\\Downloads\\okresy_test.csv");
 
-	if (citac.is_open())
-	{
-		//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
-		std::string sortNumber = u8" ";
-		std::string code = u8" ";
-		std::string officialTitle = u8" ";
-		std::string mediumTitle = u8" ";
-		std::string shortTitle = u8" ";
-		std::string note = u8" ";
+	//if (citac.is_open())
+	//{
+	//	//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
+	//	std::string sortNumber = u8" ";
+	//	std::string code = u8" ";
+	//	std::string officialTitle = u8" ";
+	//	std::string mediumTitle = u8" ";
+	//	std::string shortTitle = u8" ";
+	//	std::string note = u8" ";
 
-		std::string riadok;
+	//	std::string riadok;
 
-		getline(citac, riadok);
+	//	getline(citac, riadok);
 
-		while (!citac.eof())
-		{
-			getline(citac, sortNumber, ';');
-			getline(citac, code, ';');
-			getline(citac, officialTitle, ';');
-			getline(citac, mediumTitle, ';');
-			getline(citac, shortTitle, ';');
-			getline(citac, note);
-		
-			//Okres *okres = new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
-			okresy_->push_back(new Okres (sortNumber, code, officialTitle, mediumTitle, shortTitle, note));
-			//okresy_->push_back(okres);
-			//jednotky_->push_back(okres);
-		}
-	}
-	citac.close();
-	delete okresy_->back();
-	okresy_->pop_back();
+	//	while (!citac.eof())
+	//	{
+	//		getline(citac, sortNumber, ';');
+	//		getline(citac, code, ';');
+	//		getline(citac, officialTitle, ';');
+	//		getline(citac, mediumTitle, ';');
+	//		getline(citac, shortTitle, ';');
+	//		getline(citac, note);
 
-	citac.open("C:\\Users\\micha\\Downloads\\obce_test.csv");
+	//		//Okres *okres = new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+	//		okresy_->push_back(new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note));
+	//		//okresy_->push_back(okres);
+	//		//jednotky_->push_back(okres);
+	//	}
+	//}
+	//citac.close();
+	//delete okresy_->back();
+	//okresy_->pop_back();
 
-	if (citac.is_open())
-	{
-		//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
-		std::string sortNumber = u8" ";
-		std::string code = u8" ";
-		std::string officialTitle = u8" ";
-		std::string mediumTitle = u8" ";
-		std::string shortTitle = u8" ";
-		std::string note = u8" ";
+	//citac.open("C:\\Users\\micha\\Downloads\\obce_test.csv");
 
-		std::string riadok;
+	//if (citac.is_open())
+	//{
+	//	//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
+	//	std::string sortNumber = u8" ";
+	//	std::string code = u8" ";
+	//	std::string officialTitle = u8" ";
+	//	std::string mediumTitle = u8" ";
+	//	std::string shortTitle = u8" ";
+	//	std::string note = u8" ";
 
-		getline(citac, riadok);
+	//	std::string riadok;
 
-		while (!citac.eof())
-		{
-			getline(citac, sortNumber, ';');
-			getline(citac, code, ';');
-			getline(citac, officialTitle, ';');
-			getline(citac, mediumTitle, ';');
-			getline(citac, shortTitle, ';');
-			getline(citac, note);
+	//	getline(citac, riadok);
 
-			//Obec* obec = new Obec(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
-			obce_->push_back(new Obec(&sortNumber, &code, &officialTitle, &mediumTitle, &shortTitle, &note));
-			//obce_->push_back(obec);
-		}
-	}
-	citac.close();
-	delete obce_->back();
-	obce_->pop_back();
-	
+	//	while (!citac.eof())
+	//	{
+	//		getline(citac, sortNumber, ';');
+	//		getline(citac, code, ';');
+	//		getline(citac, officialTitle, ';');
+	//		getline(citac, mediumTitle, ';');
+	//		getline(citac, shortTitle, ';');
+	//		getline(citac, note);
+
+	//		//Obec* obec = new Obec(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+	//		obce_->push_back(new Obec(&sortNumber, &code, &officialTitle, &mediumTitle, &shortTitle, &note));
+	//		//obce_->push_back(obec);
+	//	}
+	//}
+	//citac.close();
+	//delete obce_->back();
+	//obce_->pop_back();
+
 	int index = 0;
 	int index2 = 0;
 	int index3 = 0;
@@ -124,24 +124,101 @@ void IS::nacitajJednotky()
 
 	int indexObce1 = 0;
 	int indexObce2 = 0;
-	
-	for (auto kraj : *jednotky_)
+
+	//int krajIndex = 0;
+	//for (auto kraj = jednotky_->begin(); kraj != jednotky_->end(); kraj++)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessRoot(), krajIndex).data_ = jednotky_->at(krajIndex);
+	//	krajIndex++;
+	//}
+
+	//krajIndex = 0;
+	//int okresIndex = 0;
+	//int okresV = 0;
+	//for (auto okres = okresy_->begin(); okres != okresy_->end(); okres++)
+	//{
+	//	auto kraj = hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex);
+	//	
+	//	if (okresy_->at(okresV)->getNote() != "" && kraj->data_->getNote().substr(8, 2) == okresy_->at(okresV)->getCode().substr(3, 2))
+	//	{
+	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex).data_ = okresy_->at(okresV);
+	//		//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex)->data_->getOfficialTitle() << std::endl;
+
+	//		okresIndex++;
+	//		okresV++;
+	//	}
+	//	else if (okresy_->at(okresV)->getNote() == "" && kraj->data_->getNote() == "ZZ-9-*****")
+	//	{
+	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(okresV);
+	//		std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
+
+	//		okresIndex++;
+	//		okresV++;
+	//	}
+	//	else
+	//	{
+	//		okresIndex = 0;
+	//		krajIndex++;
+	//	}
+	//}
+
+	//krajIndex = 0;
+	//okresIndex = 0;
+	//int obecIndex = 0;
+	//okresV = 0;
+	//int obecV = 0;
+	//for (auto obec = obce_->begin(); obec != obce_->end(); obec++)
+	//{
+
+
+	//	if (obce_->at(obecV)->getCode() != "" && okresy_->at(okresV)->getCode().substr(5, 1) == obce_->at(obecV)->getCode().substr(5, 1))
+	//	{
+	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex), obecIndex).data_ = std::move(obce_->at(obecV));
+	//		std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex), obecIndex)->data_->getOfficialTitle() << std::endl;
+
+	//		obecIndex++;
+	//		obecV++;
+	//	}
+	//	else
+	//	{
+	//		okresIndex++;
+	//		okresV++;
+	//		obecIndex = 0;
+
+	//		if (jednotky_->at(krajIndex)->getNote().substr(8, 2) != okresy_->at(okresV)->getCode().substr(3, 2)) //(hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex) == nullptr)
+	//		{
+	//			krajIndex++;
+	//			okresIndex = 0;
+	//			obecIndex = 0;
+	//		}
+	//		/*else if (jednotky_->at(krajIndex)->getNote() == "ZZ-9-*****")
+	//		{
+	//			krajIndex++;
+	//			okresIndex = 0;
+	//			obecIndex = 0;
+	//		}*/
+	//	}
+	//}
+
+	hierarchia_->emplaceRoot().data_ = new Slovensko();
+	std::cout << obce_->access(0)->data_->getCode();
+	for (auto kraj : *kraje_)
 	{
-		hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = jednotky_->at(index);
+		hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = kraje_->access(index)->data_;
 		//std::cout << hierarchia_->accessSon(*hierarchia_->accessRoot(), index)->data_->getOfficialTitle() << std::endl;
 
 		for (auto okres = curPos; okres != okresy_->end(); okres++)
 		{
-			if (okresy_->at(index2)->getNote() != "" && kraj->getNote().substr(8, 2) == okresy_->at(index2)->getCode().substr(3, 2))
+			if (okresy_->access(index2)->data_->getNote() != "" && kraj->getNote().substr(8, 2) == okresy_->access(index2)->data_->getCode().substr(3, 2))
 			{
-				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
+				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
 				//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getOfficialTitle() << std::endl;
-				
+
 				for (auto obec = curObec; obec != obce_->end(); obec++)
 				{
-					if (obce_->at(indexObce1)->getCode() != "" && okresy_->at(index2)->getCode().substr(5, 1) == obce_->at(indexObce1)->getCode().substr(5 ,1))
+					if (obce_->access(indexObce1)->data_->getCode() != "" && okresy_->access(index2)->data_->getCode().substr(5, 1) == obce_->access(indexObce1)->data_->getCode().substr(5, 1))
 					{
-						hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
+						hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->access(indexObce1)->data_); //obce_->at(indexObce1);
 						//std::cout << "\t\t" << obce_->at(indexObce1)->getOfficialTitle() << std::endl;
 						//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = obce_->at(indexObce1);
 
@@ -175,9 +252,9 @@ void IS::nacitajJednotky()
 				index2++;
 				index3++;
 			}
-			else if (okresy_->at(index2)->getNote() == "" && kraj->getNote() == "ZZ-9-*****")
+			else if (okresy_->access(index2)->data_->getNote() == "" && kraj->getNote() == "ZZ-9-*****")
 			{
-				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
+				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
 				std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
 
 				indexObce2 = 0;
@@ -192,13 +269,83 @@ void IS::nacitajJednotky()
 		index3 = 0;
 		index++;
 	}
-	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 0), 0).data_ = obce_->at(2928);
-	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 1), 0).data_ = obce_->at(2929);
+	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 0), 0).data_ = obce_->access(2928)->data_;
+	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 1), 0).data_ = obce_->access(2929)->data_;
+
+	//for (auto kraj : *jednotky_)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = jednotky_->at(index);
+	//	//std::cout << hierarchia_->accessSon(*hierarchia_->accessRoot(), index)->data_->getOfficialTitle() << std::endl;
+
+	//	for (auto okres = curPos; okres != okresy_->end(); okres++)
+	//	{
+	//		if (okresy_->at(index2)->getNote() != "" && kraj->getNote().substr(8, 2) == okresy_->at(index2)->getCode().substr(3, 2))
+	//		{
+	//			hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
+	//			//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getOfficialTitle() << std::endl;
+	//			
+	//			for (auto obec = curObec; obec != obce_->end(); obec++)
+	//			{
+	//				if (obce_->at(indexObce1)->getCode() != "" && okresy_->at(index2)->getCode().substr(5, 1) == obce_->at(indexObce1)->getCode().substr(5 ,1))
+	//				{
+	//					hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
+	//					//std::cout << "\t\t" << obce_->at(indexObce1)->getOfficialTitle() << std::endl;
+	//					//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = obce_->at(indexObce1);
+
+	//					indexObce1++;
+	//					indexObce2++;
+	//					curObec++;
+	//				}
+	//				//else if (obce_->at(indexObce1)->getCode().length() == 6)
+	//				//{
+	//				//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
+
+	//				//	indexObce1++;
+	//				//	indexObce2++;
+	//				//	curObec++;
+	//				//}
+	//				//else if (obce_->at(indexObce1)->getCode() == "SKZZZZZZZZZZ")
+	//				//{
+	//				//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
+
+	//				//	indexObce1++;
+	//				//	indexObce2++;
+	//				//	curObec++;
+	//				//}
+	//				else
+	//					break;
+	//			}
+	//			//indexObce1 = 0;
+	//			indexObce2 = 0;
+
+	//			curPos++;
+	//			index2++;
+	//			index3++;
+	//		}
+	//		else if (okresy_->at(index2)->getNote() == "" && kraj->getNote() == "ZZ-9-*****")
+	//		{
+	//			hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
+	//			std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
+
+	//			indexObce2 = 0;
+
+	//			curPos++;
+	//			index2++;
+	//			index3++;
+	//		}
+	//		else
+	//			break;
+	//	}
+	//	index3 = 0;
+	//	index++;
+	//}
+	//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 0), 0).data_ = obce_->at(2928);
+	//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 1), 0).data_ = obce_->at(2929);
 }
 
 void IS::nacitajUzly()
 {
-	Slovensko* slovensko = new Slovensko();
+	/*Slovensko* slovensko = new Slovensko();
 	hierarchia_->emplaceRoot().data_ = slovensko;
 	UzemnaJednotka* root = hierarchia_->accessRoot()->data_;
 
@@ -212,7 +359,7 @@ void IS::nacitajUzly()
 
 		if (jednotky_->at(i)->codeLen() > 7)
 			vlozObec(i);
-	}
+	}*/
 }
 
 void IS::startWith(int level, std::string& start)
@@ -368,7 +515,7 @@ void IS::iter()
 			if (hierarchia_->level(*curNode) == 0)
 			{
 				int index = 0;
-				for (auto kraj : *jednotky_)
+				for (auto kraj : *kraje_)
 				{
 					std::cout << "\t" << index << " " << kraj->getOfficialTitle() << std::endl;
 					index++;
@@ -465,88 +612,88 @@ void IS::iter()
 
 void IS::vlozKraj(int index)
 {
-	hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = jednotky_->at(index);
+	/*hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = jednotky_->at(index);*/
 }
 
 void IS::vlozOkres(int i)
 {
-	if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 100 && stoi(okresy_->at(i)->getNote()) < 200)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 0), ba_).data_ = okresy_->at(i);
-		//std::cout << "BA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 0), ba_)->data_->getOfficialTitle() << std::endl;
-		ba_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 200 && stoi(okresy_->at(i)->getNote()) < 300)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 1), tt_).data_ = okresy_->at(i);
-		//std::cout << "TT: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 1), tt_)->data_->getOfficialTitle() << std::endl;
-		tt_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 300 && stoi(okresy_->at(i)->getNote()) < 400)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 2), tn_).data_ = okresy_->at(i);
-		//std::cout << "TN: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 2), tn_)->data_->getOfficialTitle() << std::endl;
-		tn_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 400 && stoi(okresy_->at(i)->getNote()) < 500)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 3), nr_).data_ = okresy_->at(i);
-		//std::cout << "NR: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 3), nr_)->data_->getOfficialTitle() << std::endl;
-		nr_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 500 && stoi(okresy_->at(i)->getNote()) < 600)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 4), za_).data_ = okresy_->at(i);
-		//std::cout << "ZA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 4), za_)->data_->getOfficialTitle() << std::endl;
-		za_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 600 && stoi(okresy_->at(i)->getNote()) < 700)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 5), bb_).data_ = okresy_->at(i);
-		//std::cout << "BB: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 5), bb_)->data_->getOfficialTitle() << std::endl;
-		bb_++;
-	} 
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 700 && stoi(okresy_->at(i)->getNote()) < 800)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 6), ps_).data_ = okresy_->at(i);
-		//std::cout << "PS: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 6), ps_)->data_->getOfficialTitle() << std::endl;
-		ps_++;
-	}
-	else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 800 && stoi(okresy_->at(i)->getNote()) < 900)
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 7), ke_).data_ = okresy_->at(i);
-		//std::cout << "BA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 7), ke_)->data_->getOfficialTitle() << std::endl;
-		ke_++;
-	}
-	else if (okresy_->at(i)->getNote() == "")
-	{
-		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), o_).data_ = okresy_->at(i);
-		//std::cout << "OT: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), o_)->data_->getOfficialTitle() << std::endl;
-		o_++;
-	}
+	//if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 100 && stoi(okresy_->at(i)->getNote()) < 200)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 0), ba_).data_ = okresy_->at(i);
+	//	//std::cout << "BA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 0), ba_)->data_->getOfficialTitle() << std::endl;
+	//	ba_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 200 && stoi(okresy_->at(i)->getNote()) < 300)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 1), tt_).data_ = okresy_->at(i);
+	//	//std::cout << "TT: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 1), tt_)->data_->getOfficialTitle() << std::endl;
+	//	tt_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 300 && stoi(okresy_->at(i)->getNote()) < 400)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 2), tn_).data_ = okresy_->at(i);
+	//	//std::cout << "TN: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 2), tn_)->data_->getOfficialTitle() << std::endl;
+	//	tn_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 400 && stoi(okresy_->at(i)->getNote()) < 500)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 3), nr_).data_ = okresy_->at(i);
+	//	//std::cout << "NR: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 3), nr_)->data_->getOfficialTitle() << std::endl;
+	//	nr_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 500 && stoi(okresy_->at(i)->getNote()) < 600)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 4), za_).data_ = okresy_->at(i);
+	//	//std::cout << "ZA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 4), za_)->data_->getOfficialTitle() << std::endl;
+	//	za_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 600 && stoi(okresy_->at(i)->getNote()) < 700)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 5), bb_).data_ = okresy_->at(i);
+	//	//std::cout << "BB: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 5), bb_)->data_->getOfficialTitle() << std::endl;
+	//	bb_++;
+	//} 
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 700 && stoi(okresy_->at(i)->getNote()) < 800)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 6), ps_).data_ = okresy_->at(i);
+	//	//std::cout << "PS: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 6), ps_)->data_->getOfficialTitle() << std::endl;
+	//	ps_++;
+	//}
+	//else if (okresy_->at(i)->getNote() != "" && stoi(okresy_->at(i)->getNote()) > 800 && stoi(okresy_->at(i)->getNote()) < 900)
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 7), ke_).data_ = okresy_->at(i);
+	//	//std::cout << "BA: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 7), ke_)->data_->getOfficialTitle() << std::endl;
+	//	ke_++;
+	//}
+	//else if (okresy_->at(i)->getNote() == "")
+	//{
+	//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), o_).data_ = okresy_->at(i);
+	//	//std::cout << "OT: " << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), o_)->data_->getOfficialTitle() << std::endl;
+	//	o_++;
+	//}
 }
 
 void IS::vlozObec(int i)
 {
-	for (int IKraj = 0; IKraj < 9; IKraj++)
-	{
-		for (int IOkres = 0; IOkres < 81; IOkres++)
-		{
-			if (IKraj < hierarchia_->degree(*hierarchia_->accessRoot()) && IOkres < hierarchia_->degree(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj)))
-			{
-				UzemnaJednotka* okres = hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres)->data_;
-				if (okres->getCode() == jednotky_->at(i)->getCode().substr(0, 6))
-				{
-					//int stupenOk = hierarchia_->degree(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj));
-					hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_).data_ = jednotky_->at(i);
-					//std::cout << hierarchia_->isLeaf(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_)) << std::endl;
-					//std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_)->data_->getOfficialTitle() << std::endl;
-					//std::cout << obec_ << std::endl;
-					obec_++;
-					
-				}
-			}
-		}
-		obec_ = 0;
-	}
+	//for (int IKraj = 0; IKraj < 9; IKraj++)
+	//{
+	//	for (int IOkres = 0; IOkres < 81; IOkres++)
+	//	{
+	//		if (IKraj < hierarchia_->degree(*hierarchia_->accessRoot()) && IOkres < hierarchia_->degree(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj)))
+	//		{
+	//			UzemnaJednotka* okres = hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres)->data_;
+	//			if (okres->getCode() == jednotky_->at(i)->getCode().substr(0, 6))
+	//			{
+	//				//int stupenOk = hierarchia_->degree(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj));
+	//				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_).data_ = jednotky_->at(i);
+	//				//std::cout << hierarchia_->isLeaf(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_)) << std::endl;
+	//				//std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), IKraj), IOkres), obec_)->data_->getOfficialTitle() << std::endl;
+	//				//std::cout << obec_ << std::endl;
+	//				obec_++;
+	//				
+	//			}
+	//		}
+	//	}
+	//	obec_ = 0;
+	//}
 }
