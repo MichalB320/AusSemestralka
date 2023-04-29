@@ -19,12 +19,6 @@ public:
 	virtual int codeLen() = 0;
 	virtual int getLevel() = 0;
 
-
-	//UzemnaJednotka();
-
-	//UzemnaJednotka(std::string nazov) : nazov_(nazov) {}
-	//sortNumber;code;officialTitle;mediumTitle;shortTitle;note
-
 	virtual ~UzemnaJednotka() {	}
 };
 
