@@ -4,7 +4,7 @@
 #include "Okres.h"
 #include "Obec.h"
 
-void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt::ImplicitSequence<UzemnaJednotka*>* paOkresy, ds::amt::ImplicitSequence<UzemnaJednotka*>* paObce)
+void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt::ImplicitSequence<UzemnaJednotka*>* paOkresy, ds::amt::ImplicitSequence<UzemnaJednotka*>* paObce, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaKrajov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaOkresov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaObci)
 {
 	std::string cesty[] = { "C:\\Users\\micha\\Downloads\\kraje_test.csv",
 							"C:\\Users\\micha\\Downloads\\okresy_test.csv", 
@@ -30,7 +30,8 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 
 			getline(citac, riadok);
 
-			while (!citac.eof())
+			int index = 0;
+			while (!citac.eof()) 
 			{
 				getline(citac, sortNumber, ';');
 				getline(citac, code, ';');
@@ -42,18 +43,64 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 				switch (cesta)
 				{
 				case 0:
-					paKraje->insertLast().data_ = new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+				{
+					Kraj* kraj = new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+					paKraje->insertLast().data_ = kraj;//new Kraj(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+					paTabulkaKrajov->insert(officialTitle, kraj);
 					break;
+				}
 				case 1:
-					paOkresy->insertLast().data_ = new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+				{
+					Okres* okres = new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
+					paOkresy->insertLast().data_ = okres;
+					//int index = 0;
+					bool obsahuje = false;
+					//for (auto okres = paOkresy->begin(); okres != paOkresy->end(); okres++)
+					//{
+						if (paTabulkaOkresov->contains(mediumTitle)) //paOkresy->access(index)->data_->getMediumTitle() == mediumTitle
+						{
+							obsahuje = true;
+							std::stringstream ss;
+							ss << index;
+							mediumTitle = mediumTitle + ss.str();
+							index++;
+							//break;
+						}
+						//index++;
+					//}
+					//if (!obsahuje)
+						paTabulkaOkresov->insert(mediumTitle, okres);
 					break;
+				}
 				case 2:
-					paObce->insertLast().data_ = new Obec(&sortNumber, &code,& officialTitle, &mediumTitle, &shortTitle, &note);
+				{
+					Obec* obec = new Obec(&sortNumber, &code, &officialTitle, &mediumTitle, &shortTitle, &note);
+					paObce->insertLast().data_ = obec;
+					//paTabulkaObci->insert(officialTitle, obec);
+					//int index = 0;
+					bool obsahuje = false;
+					//for (auto obec = paObce->begin(); obec != paOkresy->end(); obec++)
+					//{
+						if (paTabulkaObci->contains(officialTitle))//paObce->access(index)->data_->getOfficialTitle() == officialTitle
+						{
+							obsahuje = true;
+							std::stringstream ss;
+							ss << index;
+							officialTitle = officialTitle + ss.str();
+							index++;
+							//break;
+						}
+						//index++;
+					//}
+					//if (!obsahuje)
+						paTabulkaObci->insert(officialTitle, obec);
 					break;
+				}
 				default:
 					std::cout << "chyba pri nacitavani zo suboru:" << std::endl;
 					break;
 				}
+				citac.peek();
 			}
 		}
 		citac.close();

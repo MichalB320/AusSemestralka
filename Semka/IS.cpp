@@ -7,10 +7,20 @@ IS::IS()
 	kraje_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
 	okresy_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
 	obce_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
+
+	tabulkaKrajov_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
+	tabulkaOkresov_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
+	tabulkaObci_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
+
+	//treap = new ds::adt::Treap<std::string, UzemnaJednotka*>();
+
+	
+
 	hierarchia_ = new ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>();
 
 	Citac citac;
-	citac.nacitaj(kraje_, okresy_, obce_);
+	citac.nacitaj(kraje_, okresy_, obce_, tabulkaKrajov_, tabulkaOkresov_, tabulkaObci_);
+	
 }
 
 void IS::nacitajJednotky()
@@ -100,16 +110,20 @@ void IS::nacitajJednotky()
 	//	}
 	//}
 
+	auto krajTab = tabulkaKrajov_->begin();
+
 	hierarchia_->emplaceRoot().data_ = new Slovensko();
 	//std::cout << obce_->access(0)->data_->getCode();
-	for (auto kraj : *kraje_)
+	for (auto kraj = kraje_->begin(); kraj != kraje_->end(); kraj++) //auto kraj : *kraje_
 	{
 		hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = kraje_->access(index)->data_;
+		
+		//hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = kraj;
 		//std::cout << hierarchia_->accessSon(*hierarchia_->accessRoot(), index)->data_->getOfficialTitle() << std::endl;
 
 		for (auto okres = curPos; okres != okresy_->end(); okres++)
 		{
-			if (okresy_->access(index2)->data_->getNote() != "" && kraj->getNote().substr(8, 2) == okresy_->access(index2)->data_->getCode().substr(3, 2))
+			if (okresy_->access(index2)->data_->getNote() != "" && kraje_->access(index)->data_->getNote().substr(8, 2) /*kraj->getNote().substr(8, 2)*/ == okresy_->access(index2)->data_->getCode().substr(3, 2))
 			{
 				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
 				//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getOfficialTitle() << std::endl;
@@ -152,7 +166,7 @@ void IS::nacitajJednotky()
 				index2++;
 				index3++;
 			}
-			else if (okresy_->access(index2)->data_->getNote() == "" && kraj->getNote() == "ZZ-9-*****")
+			else if (okresy_->access(index2)->data_->getNote() == "" && kraje_->access(index)->data_->getNote() /*kraj->getNote()*/ == "ZZ-9-*****")
 			{
 				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
 				//std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
@@ -281,11 +295,19 @@ void IS::iter()
 		else if (in == "type")
 			type(curNode);
 		else if (in == "cd")
+		{
 			curNode = changeDirectory(curNode);
+		}
 		else if (in == "contains")
 			contains(curNode);
+		else if (in == "tabContains")
+			tabContains(curNode);
 		else if (in == "start")
 			startWith(curNode);
+		else if (in == "tabStart")
+			tabStart(curNode);
+		else if (in == "tab")
+			tab();
 		else if (in == "exit")
 			break;
 		else
@@ -376,10 +398,86 @@ ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* IS::changeDirectory(ds
 {
 	std::string vstup;
 	std::cin >> vstup;
-	if (vstup == "..")
+	if (vstup == ".." && !hierarchia_->isRoot(*curNode))
 		return hierarchia_->accessParent(*curNode);
+	else if (vstup == ".." && hierarchia_->isRoot(*curNode))
+		return curNode;
 	else if (vstup == "/")
 		return hierarchia_->accessRoot();
-	else
+	else 
 		return hierarchia_->accessSon(*curNode, stoi(vstup));
+}
+
+void IS::tabStart(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
+{
+	system("cls");
+	std::cout << "\t\tPREH¼ADÁVANIE V TABU¼KÁCH" << std::endl;
+	std::cout << "\nContains: ";
+	std::string vstup;
+	std::cin >> vstup;
+
+	if (tabulkaObci_->contains(vstup))
+	{
+		
+	}
+	
+}
+
+void IS::tabContains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
+{
+
+}
+
+void IS::tab()
+{
+	system("cls");
+	std::cout << "\t\tPREH¼ADÁVANIE V TABU¼KÁCH" << std::endl;
+	std::cout << "\n\t1. Kraj\n\t2. Okres\n\t3. Obec" << std::endl;
+	std::string vyber;
+	std::cout << "\nUzemna jednotka: ";
+	std::cin >> vyber;
+	std::string nazov;
+	std::cout << "Názov: ";
+	std::cin.ignore();
+	std::getline(std::cin, nazov);
+	switch (stoi(vyber))
+	{
+	case 1:
+	{
+		if (tabulkaKrajov_->contains(nazov))
+		{
+			UzemnaJednotka* kraj = tabulkaKrajov_->find(nazov);
+			std::cout << kraj->getShortTitle() << " - " << kraj->getNote() << std::endl;
+		}
+		else
+			std::cout << "taky kraj neexistuje" << std::endl;
+		break;
+	}
+	case 2:
+	{
+		if (tabulkaOkresov_->contains(nazov))
+		{
+			UzemnaJednotka* okres = tabulkaOkresov_->find(nazov);
+			std::cout << okres->getShortTitle() << " - " << okres->getCode() << std::endl;
+		}
+		else
+			std::cout << "taky okres neexistuje" << std::endl;
+		break;
+	}
+	case 3:
+	{
+		if (tabulkaObci_->contains(nazov))
+		{
+			UzemnaJednotka* obec = tabulkaObci_->find(nazov);
+			std::cout << obec->getShortTitle() << " - " << obec->getCode() << std::endl;
+		}
+		else
+			std::cout << "taka obec neexistuje" << std::endl;
+		break;
+	}
+	default:
+		std::cout << "Nespravny vyber." << std::endl;
+		break;
+	}
+	
 }

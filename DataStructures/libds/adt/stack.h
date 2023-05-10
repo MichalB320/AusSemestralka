@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libds/adt/abstract_data_type.h>
-#include <libds/amt/implicit_hierarchy.h>
+#include <libds/amt/implicit_sequence.h>
 #include <libds/amt/explicit_sequence.h>
 
 namespace ds::adt {
@@ -72,35 +72,30 @@ namespace ds::adt {
     void ImplicitStack<T>::push(T element)
     {
         this->getSequence()->insertLast().data_ = element;
-
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        //throw std::runtime_error("Not implemented yet");
     }
 
     template<typename T>
     T& ImplicitStack<T>::peek()
     {
-        if (this->isEmpty()) { this->error("Stack is empty!"); }
+        if (this->isEmpty())
+        {
+            throw std::out_of_range("Stack is empty!");
+        }
 
         return this->getSequence()->accessLast()->data_;
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        //throw std::runtime_error("Not implemented yet");
     }
 
     template<typename T>
     T ImplicitStack<T>::pop()
     {
-        if (this->isEmpty()) { this->error)("Stack is empty!"); }
+        if (this->isEmpty())
+        {
+            throw std::out_of_range("Stack is empty!");
+        }
 
         T result = this->getSequence()->accessLast()->data_;
         this->getSequence()->removeLast();
         return result;
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        //
-        throw std::runtime_error("Not implemented yet");
     }
 
     template<typename T>
@@ -124,46 +119,31 @@ namespace ds::adt {
     template<typename T>
     void ExplicitStack<T>::push(T element)
     {
-        //pamäováŠtruktúra?vložPrvý()?dáta ? prvok
-        this->getSequence()->insertFirst()->data = element;
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        //throw std::runtime_error("Not implemented yet");
+        this->getSequence()->insertFirst().data_ = element;
     }
 
     template<typename T>
     T& ExplicitStack<T>::peek()
     {
-        //Ak(jePrázdny()) potom {
-          //  3. chyba("Zásobník je prázdny!")
-            //    4.
-        //}
-        // Vrá pamäováŠtruktúra?sprístupniPrvý()?dáta
+        if (this->isEmpty())
+        {
+            throw std::out_of_range("Stack is empty!");
+        }
 
-        if (this->isEmpty()) { this->error)("Stack is empty!"); }
-        
-        return this->getSequence()->accessFirst()->data;
-
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        //throw std::runtime_error("Not implemented yet");
+        return this->getSequence()->accessFirst()->data_;
     }
 
     template<typename T>
     T ExplicitStack<T>::pop()
     {
-        //Ak(jePrázdny()) potom {
-          //  chyba("Zásobník je prázdny!")
-            //    
-        //}
-        // definuj premennú výsledok : T ?
-          //  pamäováŠtruktúra?sprístupniPrvý()?dáta
-            //pamäováŠtruktúra?zrušPrvý()
-            //Vrá výsledok
+        if (this->isEmpty())
+        {
+            throw std::out_of_range("Stack is empty!");
+        }
 
-        // TODO 09
-        // po implementacii vymazte vyhodenie vynimky!
-        /throw std::runtime_error("Not implemented yet");
+        T result = this->getSequence()->accessFirst()->data_;
+        this->getSequence()->removeFirst();
+        return result;
     }
 
     template<typename T>
