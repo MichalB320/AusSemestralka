@@ -1,6 +1,7 @@
 #include "IS.h"
 #include <fstream>
 #include "Slovensko.h"
+#include "Alg.h"
 
 IS::IS()
 {
@@ -12,15 +13,13 @@ IS::IS()
 	tabulkaOkresov_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
 	tabulkaObci_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
 
-	//treap = new ds::adt::Treap<std::string, UzemnaJednotka*>();
-
-	
-
 	hierarchia_ = new ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>();
+
+	tabulkaNarodnosti_ = new ds::adt::SortedSequenceTable<std::string, Narodnost*>();
 
 	Citac citac;
 	citac.nacitaj(kraje_, okresy_, obce_, tabulkaKrajov_, tabulkaOkresov_, tabulkaObci_);
-	
+	citac.nacitajNarodnosti(tabulkaNarodnosti_);
 }
 
 void IS::nacitajJednotky()
@@ -275,6 +274,8 @@ void IS::contains(int level, std::string& contains)
 
 void IS::iter()
 {
+	system("cls");
+	std::cout << "\t\tITERÁTOR HIERARCHIE ÚZEMNÝCH JEDNOTIEK" << std::endl;
 	auto curNode = hierarchia_->accessRoot();
 	std::string in;
 	while (true)
@@ -295,9 +296,7 @@ void IS::iter()
 		else if (in == "type")
 			type(curNode);
 		else if (in == "cd")
-		{
 			curNode = changeDirectory(curNode);
-		}
 		else if (in == "contains")
 			contains(curNode);
 		else if (in == "tabContains")
@@ -308,10 +307,42 @@ void IS::iter()
 			tabStart(curNode);
 		else if (in == "tab")
 			tab();
+		else if (in == "info")
+			info(curNode);
 		else if (in == "exit")
 			break;
 		else
 			std::cout << "Nesprávny vstup" << std::endl;
+	}
+}
+
+void IS::run()
+{
+	bool running = true;
+	while (running)
+	{
+		std::cout << "\t1. prvá úroveò\n\t2. druhá úroveò\n\t3. tretia úroveò\n\t4. štvrtá úroveò\n\t5. koniec" << std::endl;
+		int uroven;
+		std::cin >> uroven;
+		switch (uroven)
+		{
+		case 1:
+			proc();
+			break;
+		case 2:
+			iter();
+			break;
+		case 3:
+			tab();
+			break;
+		case 4:
+			break;
+		case 5:
+			running = false;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -325,11 +356,50 @@ void IS::contains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curN
 	});
 }
 
+void IS::contains(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
+{
+	std::string vstup;
+	std::cin >> vstup;
+	/*int i = 0;
+	for (auto start = uj->begin(); start != uj->end(); start++)
+	{
+		if (uj->access(i)->data_->getOfficialTitle().find(vstup) != std::string::npos)
+			std::cout << uj->access(i)->data_->getOfficialTitle() << std::endl;
+		i++;
+	}*/
+
+	Alg spracovac;
+	spracovac.processData<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
+		if (uj->data_->getOfficialTitle().find(vstup) != std::string::npos)
+			std::cout << uj->data_->getOfficialTitle() << std::endl;
+	});
+
+}
+
 void IS::startWith(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
 	std::string vstup;
 	std::cin >> vstup;
 	hierarchia_->processPreOrder(curNode, [&](const ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+		if (uj->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
+			std::cout << uj->data_->getOfficialTitle() << std::endl;
+	});
+}
+
+void IS::startWith(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
+{
+	std::string vstup;
+	std::cin >> vstup;
+	/*int i = 0;
+	for (auto start = uj->begin(); start != uj->end(); start++)
+	{
+		if (uj->access(i)->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
+			std::cout << uj->access(i)->data_->getOfficialTitle() << std::endl;
+		i++;
+	}*/
+
+	Alg spracovac;
+	spracovac.processData<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
 		if (uj->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
 			std::cout << uj->data_->getOfficialTitle() << std::endl;
 	});
@@ -426,6 +496,81 @@ void IS::tabStart(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curN
 void IS::tabContains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
 
+}
+
+void IS::proc()
+{
+	system("cls");
+	std::cout << "\t\tSPRACOVANIE ÚDAJOVEJ ŠTRUKTÚRY" << std::endl;
+	bool running = true;
+	while (running)
+	{
+		std::cout << "\n\t1. Kraj\n\t2. Okres\n\t3. Obec" << std::endl;
+		std::string vyber;
+		std::cout << "\nUzemna jednotka: ";
+		std::cin >> vyber;
+		std::string in;
+		std::cout << "> ";
+		std::cin.ignore();
+		std::getline(std::cin, in);
+		switch (stoi(vyber))
+		{
+		case 1:
+		{
+			if (in == "contains")
+				contains(kraje_);
+			else if (in == "start")
+				startWith(kraje_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+			break;
+		}
+		case 2:
+		{
+			if (in == "contains")
+				contains(okresy_);
+			else if (in == "start")
+				startWith(okresy_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+			break;
+		}
+		case 3:
+		{
+			if (in == "contains")
+				contains(obce_);
+			else if (in == "start")
+				startWith(obce_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+			break;
+		}
+		default:
+			std::cout << "Nespravny vyber." << std::endl;
+			break;
+		}
+	}
+}
+
+void IS::info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
+{
+	if (tabulkaNarodnosti_->contains(curNode->data_->getCode()))
+	{
+
+		tabulkaNarodnosti_->find(curNode->data_->getCode())->vypis();
+
+	}
+	if (curNode->data_->getCode().length() == 1)
+	{
+		std::string cod = curNode->data_->getNote().substr(5, 10);
+		tabulkaNarodnosti_->find(curNode->data_->getNote().substr(5, 10))->vypis();
+	}
 }
 
 void IS::tab()

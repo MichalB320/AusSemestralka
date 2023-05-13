@@ -2,6 +2,7 @@
 #include "libds/amt/explicit_hierarchy.h"
 #include "libds/adt/table.h"
 #include "Citac.h"
+#include "Narodnost.h"
 
 class IS
 {
@@ -15,6 +16,7 @@ private:
 	ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* tabulkaObci_;
 
 	//ds::adt::Treap<std::string, UzemnaJednotka*>* treap;
+	ds::adt::SortedSequenceTable<std::string, Narodnost*>* tabulkaNarodnosti_;
 
 	ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>* hierarchia_;
 public:
@@ -24,6 +26,7 @@ public:
 	void startWith(int level, std::string& start);
 	void contains(int level, std::string& contains);
 	void iter();
+	void run();
 
 	~IS()
 	{
@@ -49,7 +52,9 @@ public:
 	}
 private:
 	void contains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
+	void contains(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);
 	void startWith(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
+	void startWith(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);
 
 	void dir(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void type(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
@@ -57,6 +62,8 @@ private:
 	
 	void tabStart(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void tabContains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
-
+	
+	void proc();
+	void info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void tab();
 };

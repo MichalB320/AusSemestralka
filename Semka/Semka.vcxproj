@@ -129,20 +129,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alg.cpp" />
     <ClCompile Include="Citac.cpp" />
-    <ClCompile Include="Hierar.cpp" />
     <ClCompile Include="IS.cpp" />
     <ClCompile Include="Kraj.cpp" />
+    <ClCompile Include="Narodnost.cpp" />
     <ClCompile Include="Obec.cpp" />
     <ClCompile Include="Okres.cpp" />
     <ClCompile Include="Semka.cpp" />
     <ClCompile Include="Slovensko.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alg.h" />
     <ClInclude Include="Citac.h" />
-    <ClInclude Include="Hierar.h" />
     <ClInclude Include="IS.h" />
     <ClInclude Include="Kraj.h" />
+    <ClInclude Include="Narodnost.h" />
     <ClInclude Include="Obec.h" />
     <ClInclude Include="Okres.h" />
     <ClInclude Include="Slovensko.h" />

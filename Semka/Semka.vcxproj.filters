@@ -13,56 +13,68 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\UzemneJednotky">
+      <UniqueIdentifier>{cac1464a-b98f-4552-a20a-66b6d3096ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UzemneJednotky">
+      <UniqueIdentifier>{bec48c67-b955-49ad-8e07-2a54408e014d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Semka.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Slovensko.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hierar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Kraj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Okres.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="IS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Obec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Citac.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Slovensko.cpp">
+      <Filter>Source Files\UzemneJednotky</Filter>
+    </ClCompile>
+    <ClCompile Include="Kraj.cpp">
+      <Filter>Source Files\UzemneJednotky</Filter>
+    </ClCompile>
+    <ClCompile Include="Obec.cpp">
+      <Filter>Source Files\UzemneJednotky</Filter>
+    </ClCompile>
+    <ClCompile Include="Okres.cpp">
+      <Filter>Source Files\UzemneJednotky</Filter>
+    </ClCompile>
+    <ClCompile Include="Narodnost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UzemnaJednotka.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Slovensko.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hierar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Kraj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Okres.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Obec.h">
+    <ClInclude Include="Citac.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Citac.h">
+    <ClInclude Include="Kraj.h">
+      <Filter>Header Files\UzemneJednotky</Filter>
+    </ClInclude>
+    <ClInclude Include="Slovensko.h">
+      <Filter>Header Files\UzemneJednotky</Filter>
+    </ClInclude>
+    <ClInclude Include="UzemnaJednotka.h">
+      <Filter>Header Files\UzemneJednotky</Filter>
+    </ClInclude>
+    <ClInclude Include="Okres.h">
+      <Filter>Header Files\UzemneJednotky</Filter>
+    </ClInclude>
+    <ClInclude Include="Obec.h">
+      <Filter>Header Files\UzemneJednotky</Filter>
+    </ClInclude>
+    <ClInclude Include="Narodnost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

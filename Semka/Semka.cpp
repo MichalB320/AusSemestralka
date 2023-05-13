@@ -19,7 +19,8 @@ int main()
 
     IS* is = new IS();
     is->nacitajJednotky();
-    is->iter();
+    is->run();
+    //is->iter();
     delete is;
    
     return 0;

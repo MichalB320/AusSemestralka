@@ -3,6 +3,7 @@
 #include "Kraj.h"
 #include "Okres.h"
 #include "Obec.h"
+#include "Narodnost.h"
 
 void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt::ImplicitSequence<UzemnaJednotka*>* paOkresy, ds::amt::ImplicitSequence<UzemnaJednotka*>* paObce, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaKrajov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaOkresov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaObci)
 {
@@ -105,4 +106,53 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 		}
 		citac.close();
 	}
+}
+
+void Citac::nacitajNarodnosti(ds::adt::SortedSequenceTable<std::string, Narodnost*>* paTabulkaNarodnosti)
+{
+	std::string cesta = "C:\\Users\\micha\\Downloads\\narodnosti22.csv";
+
+	std::ifstream citac;
+
+	citac.open(cesta);
+
+	if (citac.is_open())
+	{
+		//code;officialTitle;Slovenská;Maïarská;Rómska;Rusínska;Ukrajinská;Èeská;Nemecká;Po¾ská;Chorvátska;Srbská;Ruská;Židovská;Moravská;Bulharská;Sliezska;Grécka;Rumunská;Rakúska;Vietnamská;Albánska;Iná a nezistená
+		std::string code = " ";
+		std::string officialTitle = u8" ";
+		std::string* pole = new std::string[21];
+		for (int i = 0; i < 21; i++)
+			pole[i] = " ";
+
+		std::string riadok;
+
+		getline(citac, riadok);
+
+		while (!citac.eof())
+		{
+			getline(citac, code, ';');
+			getline(citac, officialTitle, ';');
+			
+			for (int i = 0; i < 21; i++)
+			{
+				if (i == 20)
+					getline(citac, pole[i]);
+				else
+					getline(citac, pole[i], ';');
+			}
+
+			/*Narodnost* nar = new std::string[21];
+			for (int i = 0; i < 21; i++)
+				nar[]*/
+
+			Narodnost* nar = new Narodnost();
+			nar->load(pole);
+
+			paTabulkaNarodnosti->insert(code, nar);
+
+			citac.peek();
+		}
+	}
+	citac.close();
 }
