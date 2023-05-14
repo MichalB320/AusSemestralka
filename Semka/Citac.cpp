@@ -61,9 +61,9 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 						if (paTabulkaOkresov->contains(mediumTitle)) //paOkresy->access(index)->data_->getMediumTitle() == mediumTitle
 						{
 							obsahuje = true;
-							std::stringstream ss;
+							/*std::stringstream ss;
 							ss << index;
-							mediumTitle = mediumTitle + ss.str();
+							mediumTitle = mediumTitle + ss.str();*/
 							index++;
 							//break;
 						}
@@ -85,9 +85,9 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 						if (paTabulkaObci->contains(officialTitle))//paObce->access(index)->data_->getOfficialTitle() == officialTitle
 						{
 							obsahuje = true;
-							std::stringstream ss;
+							/*std::stringstream ss;
 							ss << index;
-							officialTitle = officialTitle + ss.str();
+							officialTitle = officialTitle + ss.str();*/
 							index++;
 							//break;
 						}

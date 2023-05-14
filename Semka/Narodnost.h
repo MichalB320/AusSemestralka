@@ -14,7 +14,7 @@ public:
 	}
 
 	void load(std::string fs[]);
-	void vypis();
+	void vypis(std::string filter);
 
 	~Narodnost() {
 		for (int i = 0; i < 21; i++)

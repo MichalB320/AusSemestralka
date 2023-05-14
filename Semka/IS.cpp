@@ -563,16 +563,18 @@ void IS::proc()
 
 void IS::info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
+	std::string vyber;
+	std::cin >> vyber;
 	if (tabulkaNarodnosti_->contains(curNode->data_->getCode()))
 	{
 
-		tabulkaNarodnosti_->find(curNode->data_->getCode())->vypis();
+		tabulkaNarodnosti_->find(curNode->data_->getCode())->vypis(vyber);
 
 	}
 	if (curNode->data_->getCode().length() == 1)
 	{
 		std::string cod = curNode->data_->getNote().substr(5, 10);
-		tabulkaNarodnosti_->find(curNode->data_->getNote().substr(5, 10))->vypis();
+		tabulkaNarodnosti_->find(curNode->data_->getNote().substr(5, 10))->vypis(vyber);
 	}
 }
 
@@ -615,7 +617,7 @@ void IS::tab()
 			if (tabulkaObci_->contains(nazov))
 			{
 				UzemnaJednotka* obec = tabulkaObci_->find(nazov);
-				std::cout << obec->getShortTitle() << " - " << obec->getCode() << std::endl;
+				std::cout << obec->getShortTitle() << " - " << obec->getCode() << " - " << obec->getNote() << std::endl;
 			}
 			else
 				std::cout << "taka obec neexistuje" << std::endl;

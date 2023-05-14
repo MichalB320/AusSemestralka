@@ -29,8 +29,8 @@ public:
 	void run();
 
 	~IS()
-	{
-		std::string kody[] = {"SK0", "SK010", "SK021", "SK022", "SK023", "SK031", "SK032", "SK041", "SK042"};
+	{	
+		std::string kody[] = {/*"SK0",*/ "SK010", "SK021", "SK022", "SK023", "SK031", "SK032", "SK041", "SK042"};
 
 		hierarchia_->processPostOrder(hierarchia_->accessRoot(), [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
 			if (tabulkaNarodnosti_->contains(uj->data_->getCode()))
@@ -38,7 +38,7 @@ public:
 			delete uj->data_;
 		});
 
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 8; i++)
 			delete tabulkaNarodnosti_->find(kody[i]);
 
 		obce_->clear();
