@@ -2,6 +2,8 @@
 #include <fstream>
 #include "Slovensko.h"
 #include "Alg.h"
+#include <chrono>
+#include <thread>
 
 IS::IS()
 {
@@ -321,28 +323,26 @@ void IS::run()
 	bool running = true;
 	while (running)
 	{
+		system("cls");
 		std::cout << "\t1. prvá úroveò\n\t2. druhá úroveò\n\t3. tretia úroveò\n\t4. štvrtá úroveò\n\t5. koniec" << std::endl;
-		int uroven;
+		std::string uroven;
 		std::cin >> uroven;
-		switch (uroven)
-		{
-		case 1:
+		
+		if (uroven == "1")
 			proc();
-			break;
-		case 2:
+		else if (uroven == "2")
 			iter();
-			break;
-		case 3:
+		else if (uroven == "3")
 			tab();
-			break;
-		case 4:
-			break;
-		case 5:
+		else if (uroven == "4")
+			tab();
+		else if (uroven == "5")
 			running = false;
-			break;
-		default:
-			break;
-		}
+		else if (uroven == "exit")
+			running = false;
+		else
+			std::cout << "nesprávny vstup" << std::endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(600));
 	}
 }
 
@@ -509,14 +509,14 @@ void IS::proc()
 		std::string vyber;
 		std::cout << "\nUzemna jednotka: ";
 		std::cin >> vyber;
-		std::string in;
-		std::cout << "> ";
-		std::cin.ignore();
-		std::getline(std::cin, in);
-		switch (stoi(vyber))
+		
+		if (vyber == "1")
 		{
-		case 1:
-		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
+			//std::cin.ignore();
+			//std::getline(std::cin, in);
 			if (in == "contains")
 				contains(kraje_);
 			else if (in == "start")
@@ -525,10 +525,12 @@ void IS::proc()
 				running = false;
 			else
 				std::cout << "Nesprávny vstup" << std::endl;
-			break;
 		}
-		case 2:
+		else if (vyber == "2")
 		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
 			if (in == "contains")
 				contains(okresy_);
 			else if (in == "start")
@@ -537,10 +539,12 @@ void IS::proc()
 				running = false;
 			else
 				std::cout << "Nesprávny vstup" << std::endl;
-			break;
 		}
-		case 3:
+		else if (vyber == "3")
 		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
 			if (in == "contains")
 				contains(obce_);
 			else if (in == "start")
@@ -549,12 +553,11 @@ void IS::proc()
 				running = false;
 			else
 				std::cout << "Nesprávny vstup" << std::endl;
-			break;
 		}
-		default:
+		else if (vyber == "exit")
+			break;
+		else
 			std::cout << "Nespravny vyber." << std::endl;
-			break;
-		}
 	}
 }
 
@@ -577,52 +580,49 @@ void IS::tab()
 {
 	system("cls");
 	std::cout << "\t\tPREH¼ADÁVANIE V TABU¼KÁCH" << std::endl;
-	std::cout << "\n\t1. Kraj\n\t2. Okres\n\t3. Obec" << std::endl;
-	std::string vyber;
-	std::cout << "\nUzemna jednotka: ";
-	std::cin >> vyber;
-	std::string nazov;
-	std::cout << "Názov: ";
-	std::cin.ignore();
-	std::getline(std::cin, nazov);
-	switch (stoi(vyber))
+	while (true)
 	{
-	case 1:
-	{
-		if (tabulkaKrajov_->contains(nazov))
+		std::cout << "\n\t1. Kraj\n\t2. Okres\n\t3. Obec" << std::endl;
+		std::string vyber;
+		std::cout << "\nUzemna jednotka: ";
+		std::cin >> vyber;
+		std::string nazov;
+		std::cout << "Názov: ";
+		std::cin.ignore();
+		std::getline(std::cin, nazov);
+		if (vyber == "1")
 		{
-			UzemnaJednotka* kraj = tabulkaKrajov_->find(nazov);
-			std::cout << kraj->getShortTitle() << " - " << kraj->getNote() << std::endl;
+			if (tabulkaKrajov_->contains(nazov))
+			{
+				UzemnaJednotka* kraj = tabulkaKrajov_->find(nazov);
+				std::cout << kraj->getShortTitle() << " - " << kraj->getNote() << std::endl;
+			}
+			else
+				std::cout << "taky kraj neexistuje" << std::endl;
 		}
-		else
-			std::cout << "taky kraj neexistuje" << std::endl;
-		break;
-	}
-	case 2:
-	{
-		if (tabulkaOkresov_->contains(nazov))
+		else if (vyber == "2")
 		{
-			UzemnaJednotka* okres = tabulkaOkresov_->find(nazov);
-			std::cout << okres->getShortTitle() << " - " << okres->getCode() << std::endl;
+			if (tabulkaOkresov_->contains(nazov))
+			{
+				UzemnaJednotka* okres = tabulkaOkresov_->find(nazov);
+				std::cout << okres->getShortTitle() << " - " << okres->getCode() << std::endl;
+			}
+			else
+				std::cout << "taky okres neexistuje" << std::endl;
 		}
-		else
-			std::cout << "taky okres neexistuje" << std::endl;
-		break;
-	}
-	case 3:
-	{
-		if (tabulkaObci_->contains(nazov))
+		else if (vyber == "3")
 		{
-			UzemnaJednotka* obec = tabulkaObci_->find(nazov);
-			std::cout << obec->getShortTitle() << " - " << obec->getCode() << std::endl;
+			if (tabulkaObci_->contains(nazov))
+			{
+				UzemnaJednotka* obec = tabulkaObci_->find(nazov);
+				std::cout << obec->getShortTitle() << " - " << obec->getCode() << std::endl;
+			}
+			else
+				std::cout << "taka obec neexistuje" << std::endl;
 		}
+		else if (vyber == "exit")
+			break;
 		else
-			std::cout << "taka obec neexistuje" << std::endl;
-		break;
+			std::cout << "Nespravny vyber." << std::endl;
 	}
-	default:
-		std::cout << "Nespravny vyber." << std::endl;
-		break;
-	}
-	
 }

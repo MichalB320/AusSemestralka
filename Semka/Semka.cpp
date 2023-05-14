@@ -13,8 +13,6 @@ int main()
     SetConsoleOutputCP(1250);
     SetConsoleCP(1250);
 
-    std::cout << "Hello World!\n";
-
     initHeapMonitor();
 
     IS* is = new IS();

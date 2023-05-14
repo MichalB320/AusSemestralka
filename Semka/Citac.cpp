@@ -153,6 +153,7 @@ void Citac::nacitajNarodnosti(ds::adt::SortedSequenceTable<std::string, Narodnos
 
 			citac.peek();
 		}
+		delete[] pole;
 	}
 	citac.close();
 }

@@ -19,7 +19,7 @@ public:
 	~Narodnost() {
 		for (int i = 0; i < 21; i++)
 			narodnosti[i] = " ";
-		delete[] narodnosti;
+		//delete narodnosti;
 	}
 };
 
