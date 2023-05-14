@@ -17,7 +17,7 @@ public:
 		nazov_ = "Slovensko";
 
 		sortNumber_ = "1";
-		code_ = "SK";
+		code_ = "SK0";
 		officialTitle_ = "Slovenská republika";
 		mediumTitle_ = "Slovensko";
 		shortTitle_ = "SVK";
