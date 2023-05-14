@@ -5,7 +5,7 @@
 #include "Obec.h"
 #include "Narodnost.h"
 
-void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt::ImplicitSequence<UzemnaJednotka*>* paOkresy, ds::amt::ImplicitSequence<UzemnaJednotka*>* paObce, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaKrajov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaOkresov, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaObci)
+void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt::ImplicitSequence<UzemnaJednotka*>* paOkresy, ds::amt::ImplicitSequence<UzemnaJednotka*>* paObce, ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* paTabulkaKrajov)
 {
 	std::string cesty[] = { "C:\\Users\\micha\\Downloads\\kraje_test.csv",
 							"C:\\Users\\micha\\Downloads\\okresy_test.csv", 
@@ -54,47 +54,12 @@ void Citac::nacitaj(ds::amt::ImplicitSequence<UzemnaJednotka*>* paKraje, ds::amt
 				{
 					Okres* okres = new Okres(sortNumber, code, officialTitle, mediumTitle, shortTitle, note);
 					paOkresy->insertLast().data_ = okres;
-					//int index = 0;
-					bool obsahuje = false;
-					//for (auto okres = paOkresy->begin(); okres != paOkresy->end(); okres++)
-					//{
-						if (paTabulkaOkresov->contains(mediumTitle)) //paOkresy->access(index)->data_->getMediumTitle() == mediumTitle
-						{
-							obsahuje = true;
-							/*std::stringstream ss;
-							ss << index;
-							mediumTitle = mediumTitle + ss.str();*/
-							index++;
-							//break;
-						}
-						//index++;
-					//}
-					//if (!obsahuje)
-						paTabulkaOkresov->insert(mediumTitle, okres);
 					break;
 				}
 				case 2:
 				{
 					Obec* obec = new Obec(&sortNumber, &code, &officialTitle, &mediumTitle, &shortTitle, &note);
 					paObce->insertLast().data_ = obec;
-					//paTabulkaObci->insert(officialTitle, obec);
-					//int index = 0;
-					bool obsahuje = false;
-					//for (auto obec = paObce->begin(); obec != paOkresy->end(); obec++)
-					//{
-						if (paTabulkaObci->contains(officialTitle))//paObce->access(index)->data_->getOfficialTitle() == officialTitle
-						{
-							obsahuje = true;
-							/*std::stringstream ss;
-							ss << index;
-							officialTitle = officialTitle + ss.str();*/
-							index++;
-							//break;
-						}
-						//index++;
-					//}
-					//if (!obsahuje)
-						paTabulkaObci->insert(officialTitle, obec);
 					break;
 				}
 				default:

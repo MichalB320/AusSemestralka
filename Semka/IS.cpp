@@ -12,16 +12,17 @@ IS::IS()
 	obce_ = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
 
 	tabulkaKrajov_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
-	tabulkaOkresov_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
-	tabulkaObci_ = new ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>();
+	tabulkaOkresov_ = new ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>();
+	tabulkaObci_ = new ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>();
 
 	hierarchia_ = new ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>();
 
 	tabulkaNarodnosti_ = new ds::adt::SortedSequenceTable<std::string, Narodnost*>();
 
 	Citac citac;
-	citac.nacitaj(kraje_, okresy_, obce_, tabulkaKrajov_, tabulkaOkresov_, tabulkaObci_);
+	citac.nacitaj(kraje_, okresy_, obce_, tabulkaKrajov_);
 	citac.nacitajNarodnosti(tabulkaNarodnosti_);
+	nacitajTabulky();
 }
 
 void IS::nacitajJednotky()
@@ -606,8 +607,13 @@ void IS::tab()
 		{
 			if (tabulkaOkresov_->contains(nazov))
 			{
-				UzemnaJednotka* okres = tabulkaOkresov_->find(nazov);
-				std::cout << okres->getShortTitle() << " - " << okres->getCode() << std::endl;
+				int index = 0;
+				for (auto zaciatok = tabulkaOkresov_->find(nazov)->begin(); zaciatok != tabulkaOkresov_->find(nazov)->end(); zaciatok++)
+				{
+					UzemnaJednotka* okres = tabulkaOkresov_->find(nazov)->at(index);
+					std::cout << okres->getShortTitle() << " - " << okres->getCode() << " - " << okres->getNote() << std::endl;
+					index++;
+				}
 			}
 			else
 				std::cout << "taky okres neexistuje" << std::endl;
@@ -616,8 +622,13 @@ void IS::tab()
 		{
 			if (tabulkaObci_->contains(nazov))
 			{
-				UzemnaJednotka* obec = tabulkaObci_->find(nazov);
-				std::cout << obec->getShortTitle() << " - " << obec->getCode() << " - " << obec->getNote() << std::endl;
+				int index = 0;
+				for (auto zaciatok = tabulkaObci_->find(nazov)->begin(); zaciatok != tabulkaObci_->find(nazov)->end(); zaciatok++)
+				{
+					UzemnaJednotka* obec = tabulkaObci_->find(nazov)->at(index);
+					std::cout << obec->getShortTitle() << " - " << obec->getCode() << " - " << obec->getNote() << std::endl;
+					index++;
+				}
 			}
 			else
 				std::cout << "taka obec neexistuje" << std::endl;
@@ -626,5 +637,40 @@ void IS::tab()
 			break;
 		else
 			std::cout << "Nespravny vyber." << std::endl;
+	}
+}
+
+void IS::nacitajTabulky()
+{
+	int index = 0;
+	for (auto zaciatok = okresy_->begin(); zaciatok != okresy_->end(); zaciatok++)
+	{
+		if (tabulkaOkresov_->contains(okresy_->access(index)->data_->getOfficialTitle()))
+		{
+			tabulkaOkresov_->find(okresy_->access(index)->data_->getOfficialTitle())->push_back(okresy_->access(index)->data_);
+		}
+		else
+		{
+			std::vector<UzemnaJednotka*>* Vokres = new std::vector<UzemnaJednotka*>();
+			Vokres->push_back(okresy_->access(index)->data_);
+			tabulkaOkresov_->insert(okresy_->access(index)->data_->getOfficialTitle(), Vokres);
+		}
+		index++;
+	}
+
+	index = 0;
+	for (auto zaciatok = obce_->begin(); zaciatok != obce_->end(); zaciatok++)
+	{
+		if (tabulkaObci_->contains(obce_->access(index)->data_->getOfficialTitle()))
+		{
+			tabulkaObci_->find(obce_->access(index)->data_->getOfficialTitle())->push_back(obce_->access(index)->data_);
+		}
+		else
+		{
+			std::vector<UzemnaJednotka*>* Vobce = new std::vector<UzemnaJednotka*>();
+			Vobce->push_back(obce_->access(index)->data_);
+			tabulkaObci_->insert(obce_->access(index)->data_->getOfficialTitle(), Vobce);
+		}
+		index++;
 	}
 }

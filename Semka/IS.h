@@ -3,6 +3,7 @@
 #include "libds/adt/table.h"
 #include "Citac.h"
 #include "Narodnost.h"
+#include "STable.h"
 
 class IS
 {
@@ -12,8 +13,8 @@ private:
 	ds::amt::ImplicitSequence<UzemnaJednotka*>* obce_;
 
 	ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* tabulkaKrajov_;
-	ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* tabulkaOkresov_;
-	ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* tabulkaObci_;
+	ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>* tabulkaOkresov_;
+	ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>* tabulkaObci_;
 
 	//ds::adt::Treap<std::string, UzemnaJednotka*>* treap;
 	ds::adt::SortedSequenceTable<std::string, Narodnost*>* tabulkaNarodnosti_;
@@ -35,6 +36,11 @@ public:
 		hierarchia_->processPostOrder(hierarchia_->accessRoot(), [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
 			if (tabulkaNarodnosti_->contains(uj->data_->getCode()))
 				delete tabulkaNarodnosti_->find(uj->data_->getCode());
+			if (tabulkaObci_->contains(uj->data_->getCode()))
+				delete tabulkaObci_->find(uj->data_->getCode());
+			if (tabulkaOkresov_->contains(uj->data_->getCode()))
+				delete tabulkaOkresov_->find(uj->data_->getCode());
+
 			delete uj->data_;
 		});
 
@@ -44,6 +50,11 @@ public:
 		obce_->clear();
 		okresy_->clear();
 		kraje_->clear();
+
+	/*	for (auto zaciatok = tabulkaObci_->begin(); zaciatok != tabulkaObci_->end(); zaciatok++)
+		{
+		
+		}*/
 
 		tabulkaKrajov_->clear();
 		tabulkaOkresov_->clear();
@@ -75,4 +86,5 @@ private:
 	void proc();
 	void info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void tab();
+	void nacitajTabulky();
 };

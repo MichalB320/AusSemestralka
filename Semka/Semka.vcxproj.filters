@@ -48,6 +48,9 @@
     <ClCompile Include="Alg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="STable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IS.h">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Alg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="STable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
