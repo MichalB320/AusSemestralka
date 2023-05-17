@@ -56,25 +56,10 @@ public:
 		std::string kody[] = {/*"SK0",*/ "SK010", "SK021", "SK022", "SK023", "SK031", "SK032", "SK041", "SK042"};
 		int index = 0;
 		hierarchia_->processPostOrder(hierarchia_->accessRoot(), [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-			//std::string kluc = uj->data_->getOfficialTitle();
-			//
 			if (tabulkaNarodnosti_->contains(uj->data_->getCode()))
 			{
 				delete tabulkaNarodnosti_->find(uj->data_->getCode());
-				
 			}
-			//if (tabulkaObci_->contains(kluc))
-			//{
-			//	auto data = uj->data_;
-			//	std::vector<UzemnaJednotka*>* pomV = tabulkaObci_->find(kluc);
-			//	
-
-			//	//delete pomV;
-			//	index++;
-			//}
-			//if (tabulkaOkresov_->contains(kluc))
-			//	auto prem = tabulkaOkresov_->find(kluc);
-
 			delete uj->data_;
 		});
 
