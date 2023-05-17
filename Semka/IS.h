@@ -31,15 +31,49 @@ public:
 
 	~IS()
 	{	
-		std::string kody[] = {/*"SK0",*/ "SK010", "SK021", "SK022", "SK023", "SK031", "SK032", "SK041", "SK042"};
+		int i = 0;
+		for (auto it = obce_->begin(); it != obce_->end(); it++)
+		{
+			if (tabulkaObci_->contains(obce_->access(i)->data_->getOfficialTitle()))
+			{
+				delete tabulkaObci_->find(obce_->access(i)->data_->getOfficialTitle());
+				tabulkaObci_->remove(obce_->access(i)->data_->getOfficialTitle());
+			}
+			i++;
+		}
 
+		i = 0;
+		for (auto it = okresy_->begin(); it != okresy_->end(); it++)
+		{
+			if (tabulkaOkresov_->contains(okresy_->access(i)->data_->getOfficialTitle()))
+			{
+				delete tabulkaOkresov_->find(okresy_->access(i)->data_->getOfficialTitle());
+				tabulkaOkresov_->remove(okresy_->access(i)->data_->getOfficialTitle());
+			}
+			i++;
+		}
+
+		std::string kody[] = {/*"SK0",*/ "SK010", "SK021", "SK022", "SK023", "SK031", "SK032", "SK041", "SK042"};
+		int index = 0;
 		hierarchia_->processPostOrder(hierarchia_->accessRoot(), [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::string kluc = uj->data_->getOfficialTitle();
+			//
 			if (tabulkaNarodnosti_->contains(uj->data_->getCode()))
+			{
 				delete tabulkaNarodnosti_->find(uj->data_->getCode());
-			if (tabulkaObci_->contains(uj->data_->getCode()))
-				delete tabulkaObci_->find(uj->data_->getCode());
-			if (tabulkaOkresov_->contains(uj->data_->getCode()))
-				delete tabulkaOkresov_->find(uj->data_->getCode());
+				
+			}
+			//if (tabulkaObci_->contains(kluc))
+			//{
+			//	auto data = uj->data_;
+			//	std::vector<UzemnaJednotka*>* pomV = tabulkaObci_->find(kluc);
+			//	
+
+			//	//delete pomV;
+			//	index++;
+			//}
+			//if (tabulkaOkresov_->contains(kluc))
+			//	auto prem = tabulkaOkresov_->find(kluc);
 
 			delete uj->data_;
 		});
@@ -50,11 +84,6 @@ public:
 		obce_->clear();
 		okresy_->clear();
 		kraje_->clear();
-
-	/*	for (auto zaciatok = tabulkaObci_->begin(); zaciatok != tabulkaObci_->end(); zaciatok++)
-		{
-		
-		}*/
 
 		tabulkaKrajov_->clear();
 		tabulkaOkresov_->clear();
