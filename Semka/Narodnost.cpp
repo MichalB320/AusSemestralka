@@ -49,4 +49,46 @@ void Narodnost::vypis(std::string filter)
 		std::cout << nazvy[index] << ": " << max << std::endl;
 		narodnosti[0] = docasna;
 	}
+	else
+	{
+		int vstupInt = stoi(filter);
+		if (vstupInt < 21)
+		{
+			std::string* hlbokaKopiaPola = new std::string[21];
+			for (int i = 0; i < 21; i++)
+			{
+				hlbokaKopiaPola[i] = narodnosti[i];
+			}
+
+			int max = 0;
+			int index;
+			for (int j = 0; j < vstupInt; j++)
+			{
+				for (int i = 0; i < 21; i++)
+				{
+					if (stoi(hlbokaKopiaPola[i]) > max)
+					{
+						max = stoi(hlbokaKopiaPola[i]);
+						index = i;
+					}
+				}
+				hlbokaKopiaPola[index] = "0";
+				max = 0;
+			}
+			for (int i = 0; i < 21; i++)
+			{
+				if (stoi(hlbokaKopiaPola[i]) > max)
+				{
+					max = stoi(hlbokaKopiaPola[i]);
+					index = i;
+				}
+			}
+			std::cout << "\t" << nazvy[index] << ": " << max << std::endl;
+			delete[] hlbokaKopiaPola;
+		}
+		else
+		{
+			std::cout << "narodnosti je len 21" << std::endl;
+		}
+	}
 }
