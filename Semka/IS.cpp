@@ -4,6 +4,7 @@
 #include "Alg.h"
 #include <chrono>
 #include <thread>
+#include "libds/adt/sorts.h"
 
 IS::IS()
 {
@@ -312,6 +313,10 @@ void IS::iter()
 			tab();
 		else if (in == "info")
 			info(curNode);
+		else if (in == "sort")
+			sort();
+		else if (in == "alpha")
+			alpha(curNode);
 		else if (in == "exit")
 			break;
 		else
@@ -336,7 +341,7 @@ void IS::run()
 		else if (uroven == "3")
 			tab();
 		else if (uroven == "4")
-			tab();
+			sort();
 		else if (uroven == "5")
 			running = false;
 		else if (uroven == "exit")
@@ -673,4 +678,181 @@ void IS::nacitajTabulky()
 		}
 		index++;
 	}
+}
+
+void IS::sort()
+{
+	system("cls");
+	std::cout << "\t\tSOERTOVANIE" << std::endl;
+	bool running = true;
+	while (running)
+	{
+		std::cout << "\n\t1. Kraj\n\t2. Okres\n\t3. Obec" << std::endl;
+		std::string vyber;
+		std::cout << "\nUzemna jednotka: ";
+		std::cin >> vyber;
+
+		if (vyber == "1")
+		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
+			if (in == "alpha")
+				alpha(kraje_);
+			else if (in == "vowelsCount")
+				vowelsCount(kraje_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+		}
+		else if (vyber == "2")
+		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
+			if (in == "alpha")
+				alpha(okresy_);
+			else if (in == "vowelsCount")
+				vowelsCount(okresy_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+		}
+		else if (vyber == "3")
+		{
+			std::string in;
+			std::cout << "> ";
+			std::cin >> in;
+			if (in == "alpha")
+				alpha(obce_);
+			else if (in == "vowelsCount")
+				vowelsCount(obce_);
+			else if (in == "exit")
+				running = false;
+			else
+				std::cout << "Nesprávny vstup" << std::endl;
+		}
+		else if (vyber == "exit")
+			break;
+		else
+			std::cout << "Nespravny vyber." << std::endl;
+	}
+}
+
+void IS::alpha(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
+{
+
+	ds::amt::ImplicitSequence<std::string> pomocna;
+	int i = 0;
+	for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
+	{
+		pomocna.insertLast().data_ = uj->access(i)->data_->getOfficialTitle();
+		i++;
+	}
+
+	ds::adt::QuickSort<std::string> quickSort;
+	quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+		return a < b;
+	});
+
+	for (auto element : pomocna)
+	{
+		std::cout << element << std::endl;
+	}
+}
+
+void IS::alpha(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
+{
+	if (hierarchia_->level(*curNode) == 0)
+	{
+		alpha(kraje_);
+	}
+	else if (hierarchia_->level(*curNode) == 1)
+	{
+		int index = 0;
+		ds::amt::ImplicitSequence<std::string> pomocna;
+		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::cout << uj->data_->getOfficialTitle() << std::endl;
+			if (hierarchia_->level(*uj) == 2)
+			{
+				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
+			}
+		});
+
+		ds::adt::QuickSort<std::string> quickSort;
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			return a < b;
+			});
+
+		for (auto element : pomocna)
+		{
+			std::cout << element << std::endl;
+		}
+	}
+	else if (hierarchia_->level(*curNode) == 2)
+	{
+		int index = 0;
+		ds::amt::ImplicitSequence<std::string> pomocna;
+		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::cout << uj->data_->getOfficialTitle() << std::endl;
+			if (hierarchia_->level(*uj) == 3)
+			{
+				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
+			}
+			});
+
+		ds::adt::QuickSort<std::string> quickSort;
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			return a < b;
+		});
+
+		for (auto element : pomocna)
+		{
+			std::cout << element << std::endl;
+		}
+	}
+	else if (hierarchia_->level(*curNode) == 3)
+		std::cout << "\t" << curNode->data_->getOfficialTitle() << " = " << hierarchia_->isLeaf(*curNode) << "(is leaf)" << std::endl;
+}
+
+void IS::vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
+{
+	ds::amt::ImplicitSequence<std::string> pomocna;
+	int i = 0;
+	for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
+	{
+		pomocna.insertLast().data_ = uj->access(i)->data_->getOfficialTitle();
+		i++;
+	}
+
+	ds::adt::QuickSort<std::string> quickSort;
+	quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+		int pocetA = countVowels(a);
+		int pocetB = countVowels(b);
+		return pocetA > pocetB;
+	});
+
+	for (std::string element : pomocna)
+	{
+		std::cout << element << " : " << countVowels(element) << std::endl;
+	}
+}
+
+void IS::vowelsCount(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
+{
+
+}
+
+int IS::countVowels(const std::string& str)
+{
+	int pocet = 0;
+	std::string samohlasky = "aeiouAEIOU";
+	for (char pismeno : str)
+	{
+		if (samohlasky.find(pismeno) != std::string::npos)
+			pocet++;
+	}
+	return pocet;
 }

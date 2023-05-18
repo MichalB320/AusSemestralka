@@ -101,4 +101,10 @@ private:
 	void info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void tab();
 	void nacitajTabulky();
+	void sort();
+	void alpha(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);
+	void alpha(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
+	void vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);
+	void vowelsCount(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
+	int countVowels(const std::string& str);
 };
