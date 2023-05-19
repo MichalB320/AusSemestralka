@@ -12,20 +12,17 @@ private:
 	ds::amt::ImplicitSequence<UzemnaJednotka*>* okresy_;
 	ds::amt::ImplicitSequence<UzemnaJednotka*>* obce_;
 
+	ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>* hierarchia_;
+
 	ds::adt::SortedSequenceTable<std::string, UzemnaJednotka*>* tabulkaKrajov_;
 	ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>* tabulkaOkresov_;
 	ds::adt::SortedSequenceTable<std::string, std::vector<UzemnaJednotka*>*>* tabulkaObci_;
 
-	//ds::adt::Treap<std::string, UzemnaJednotka*>* treap;
 	ds::adt::SortedSequenceTable<std::string, Narodnost*>* tabulkaNarodnosti_;
-
-	ds::amt::MultiWayExplicitHierarchy<UzemnaJednotka*>* hierarchia_;
 public:
 	IS();
 
 	void nacitajJednotky();
-	void startWith(int level, std::string& start);
-	void contains(int level, std::string& contains);
 	void iter();
 	void run();
 
@@ -94,14 +91,12 @@ private:
 	void type(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* changeDirectory(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	
-	void tabStart(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
-	void tabContains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
-	
 	void proc();
 	void info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void tab();
 	void nacitajTabulky();
 	void sort();
+
 	void alpha(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);
 	void alpha(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode);
 	void vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj);

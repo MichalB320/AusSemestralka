@@ -38,127 +38,27 @@ void IS::nacitajJednotky()
 	int indexObce1 = 0;
 	int indexObce2 = 0;
 
-	//int krajIndex = 0;
-	//for (auto kraj = jednotky_->begin(); kraj != jednotky_->end(); kraj++)
-	//{
-	//	hierarchia_->emplaceSon(*hierarchia_->accessRoot(), krajIndex).data_ = jednotky_->at(krajIndex);
-	//	krajIndex++;
-	//}
-
-	//krajIndex = 0;
-	//int okresIndex = 0;
-	//int okresV = 0;
-	//for (auto okres = okresy_->begin(); okres != okresy_->end(); okres++)
-	//{
-	//	auto kraj = hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex);
-	//	
-	//	if (okresy_->at(okresV)->getNote() != "" && kraj->data_->getNote().substr(8, 2) == okresy_->at(okresV)->getCode().substr(3, 2))
-	//	{
-	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex).data_ = okresy_->at(okresV);
-	//		//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex)->data_->getOfficialTitle() << std::endl;
-
-	//		okresIndex++;
-	//		okresV++;
-	//	}
-	//	else if (okresy_->at(okresV)->getNote() == "" && kraj->data_->getNote() == "ZZ-9-*****")
-	//	{
-	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(okresV);
-	//		std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
-
-	//		okresIndex++;
-	//		okresV++;
-	//	}
-	//	else
-	//	{
-	//		okresIndex = 0;
-	//		krajIndex++;
-	//	}
-	//}
-
-	//krajIndex = 0;
-	//okresIndex = 0;
-	//int obecIndex = 0;
-	//okresV = 0;
-	//int obecV = 0;
-	//for (auto obec = obce_->begin(); obec != obce_->end(); obec++)
-	//{
-
-
-	//	if (obce_->at(obecV)->getCode() != "" && okresy_->at(okresV)->getCode().substr(5, 1) == obce_->at(obecV)->getCode().substr(5, 1))
-	//	{
-	//		hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex), obecIndex).data_ = std::move(obce_->at(obecV));
-	//		std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex), okresIndex), obecIndex)->data_->getOfficialTitle() << std::endl;
-
-	//		obecIndex++;
-	//		obecV++;
-	//	}
-	//	else
-	//	{
-	//		okresIndex++;
-	//		okresV++;
-	//		obecIndex = 0;
-
-	//		if (jednotky_->at(krajIndex)->getNote().substr(8, 2) != okresy_->at(okresV)->getCode().substr(3, 2)) //(hierarchia_->accessSon(*hierarchia_->accessRoot(), krajIndex) == nullptr)
-	//		{
-	//			krajIndex++;
-	//			okresIndex = 0;
-	//			obecIndex = 0;
-	//		}
-	//		/*else if (jednotky_->at(krajIndex)->getNote() == "ZZ-9-*****")
-	//		{
-	//			krajIndex++;
-	//			okresIndex = 0;
-	//			obecIndex = 0;
-	//		}*/
-	//	}
-	//}
-
 	auto krajTab = tabulkaKrajov_->begin();
 
 	hierarchia_->emplaceRoot().data_ = new Slovensko();
-	//std::cout << obce_->access(0)->data_->getCode();
-	for (auto kraj = kraje_->begin(); kraj != kraje_->end(); kraj++) //auto kraj : *kraje_
+	for (auto kraj = kraje_->begin(); kraj != kraje_->end(); kraj++)
 	{
 		hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = kraje_->access(index)->data_;
-		
-		//hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = kraj;
-		//std::cout << hierarchia_->accessSon(*hierarchia_->accessRoot(), index)->data_->getOfficialTitle() << std::endl;
 
 		for (auto okres = curPos; okres != okresy_->end(); okres++)
 		{
 			if (okresy_->access(index2)->data_->getNote() != "" && kraje_->access(index)->data_->getNote().substr(8, 2) /*kraj->getNote().substr(8, 2)*/ == okresy_->access(index2)->data_->getCode().substr(3, 2))
 			{
 				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
-				//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getOfficialTitle() << std::endl;
-
 				for (auto obec = curObec; obec != obce_->end(); obec++)
 				{
 					if (obce_->access(indexObce1)->data_->getCode() != "" && okresy_->access(index2)->data_->getCode().substr(5, 1) == obce_->access(indexObce1)->data_->getCode().substr(5, 1))
 					{
-						hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->access(indexObce1)->data_); //obce_->at(indexObce1);
-						//std::cout << "\t\t" << obce_->at(indexObce1)->getOfficialTitle() << std::endl;
-						//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = obce_->at(indexObce1);
-
+						hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->access(indexObce1)->data_);
 						indexObce1++;
 						indexObce2++;
 						curObec++;
 					}
-					//else if (obce_->at(indexObce1)->getCode().length() == 6)
-					//{
-					//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
-
-					//	indexObce1++;
-					//	indexObce2++;
-					//	curObec++;
-					//}
-					//else if (obce_->at(indexObce1)->getCode() == "SKZZZZZZZZZZ")
-					//{
-					//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
-
-					//	indexObce1++;
-					//	indexObce2++;
-					//	curObec++;
-					//}
 					else
 						break;
 				}
@@ -172,7 +72,6 @@ void IS::nacitajJednotky()
 			else if (okresy_->access(index2)->data_->getNote() == "" && kraje_->access(index)->data_->getNote() /*kraj->getNote()*/ == "ZZ-9-*****")
 			{
 				hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->access(index2)->data_;
-				//std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
 
 				indexObce2 = 0;
 
@@ -188,92 +87,6 @@ void IS::nacitajJednotky()
 	}
 	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 0), 0).data_ = obce_->access(2928)->data_;
 	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 1), 0).data_ = obce_->access(2929)->data_;
-
-	//for (auto kraj : *jednotky_)
-	//{
-	//	hierarchia_->emplaceSon(*hierarchia_->accessRoot(), index).data_ = jednotky_->at(index);
-	//	//std::cout << hierarchia_->accessSon(*hierarchia_->accessRoot(), index)->data_->getOfficialTitle() << std::endl;
-
-	//	for (auto okres = curPos; okres != okresy_->end(); okres++)
-	//	{
-	//		if (okresy_->at(index2)->getNote() != "" && kraj->getNote().substr(8, 2) == okresy_->at(index2)->getCode().substr(3, 2))
-	//		{
-	//			hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
-	//			//std::cout << "\t" << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getOfficialTitle() << std::endl;
-	//			
-	//			for (auto obec = curObec; obec != obce_->end(); obec++)
-	//			{
-	//				if (obce_->at(indexObce1)->getCode() != "" && okresy_->at(index2)->getCode().substr(5, 1) == obce_->at(indexObce1)->getCode().substr(5 ,1))
-	//				{
-	//					hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
-	//					//std::cout << "\t\t" << obce_->at(indexObce1)->getOfficialTitle() << std::endl;
-	//					//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = obce_->at(indexObce1);
-
-	//					indexObce1++;
-	//					indexObce2++;
-	//					curObec++;
-	//				}
-	//				//else if (obce_->at(indexObce1)->getCode().length() == 6)
-	//				//{
-	//				//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
-
-	//				//	indexObce1++;
-	//				//	indexObce2++;
-	//				//	curObec++;
-	//				//}
-	//				//else if (obce_->at(indexObce1)->getCode() == "SKZZZZZZZZZZ")
-	//				//{
-	//				//	hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3), indexObce2).data_ = std::move(obce_->at(indexObce1)); //obce_->at(indexObce1);
-
-	//				//	indexObce1++;
-	//				//	indexObce2++;
-	//				//	curObec++;
-	//				//}
-	//				else
-	//					break;
-	//			}
-	//			//indexObce1 = 0;
-	//			indexObce2 = 0;
-
-	//			curPos++;
-	//			index2++;
-	//			index3++;
-	//		}
-	//		else if (okresy_->at(index2)->getNote() == "" && kraj->getNote() == "ZZ-9-*****")
-	//		{
-	//			hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3).data_ = okresy_->at(index2);
-	//			std::cout << hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), index), index3)->data_->getCode() << std::endl;
-
-	//			indexObce2 = 0;
-
-	//			curPos++;
-	//			index2++;
-	//			index3++;
-	//		}
-	//		else
-	//			break;
-	//	}
-	//	index3 = 0;
-	//	index++;
-	//}
-	//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 0), 0).data_ = obce_->at(2928);
-	//hierarchia_->emplaceSon(*hierarchia_->accessSon(*hierarchia_->accessSon(*hierarchia_->accessRoot(), 8), 1), 0).data_ = obce_->at(2929);
-}
-
-void IS::startWith(int level, std::string& start)
-{
-	hierarchia_->processPreOrder(hierarchia_->accessRoot(), [&](const ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-		if (uj->data_->getOfficialTitle().compare(0, start.length(), start) == 0)
-			std::cout << uj->data_->getOfficialTitle() << std::endl;
-	});
-}
-
-void IS::contains(int level, std::string& contains)
-{
-	hierarchia_->processPreOrder(hierarchia_->accessRoot(), [&](const ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-		if (uj->data_->getOfficialTitle().find(contains) != std::string::npos)
-			std::cout << uj->data_->getOfficialTitle() << std::endl;
-	});
 }
 
 void IS::iter()
@@ -303,12 +116,8 @@ void IS::iter()
 			curNode = changeDirectory(curNode);
 		else if (in == "contains")
 			contains(curNode);
-		else if (in == "tabContains")
-			tabContains(curNode);
 		else if (in == "start")
 			startWith(curNode);
-		else if (in == "tabStart")
-			tabStart(curNode);
 		else if (in == "tab")
 			tab();
 		else if (in == "info")
@@ -317,6 +126,8 @@ void IS::iter()
 			sort();
 		else if (in == "alpha")
 			alpha(curNode);
+		else if (in == "vowels")
+			vowelsCount(curNode);
 		else if (in == "exit")
 			break;
 		else
@@ -347,8 +158,10 @@ void IS::run()
 		else if (uroven == "exit")
 			running = false;
 		else
+		{
 			std::cout << "nesprávny vstup" << std::endl;
-		std::this_thread::sleep_for(std::chrono::milliseconds(600));
+			std::this_thread::sleep_for(std::chrono::milliseconds(600));
+		}
 	}
 }
 
@@ -366,20 +179,11 @@ void IS::contains(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 {
 	std::string vstup;
 	std::cin >> vstup;
-	/*int i = 0;
-	for (auto start = uj->begin(); start != uj->end(); start++)
-	{
-		if (uj->access(i)->data_->getOfficialTitle().find(vstup) != std::string::npos)
-			std::cout << uj->access(i)->data_->getOfficialTitle() << std::endl;
-		i++;
-	}*/
-
-	Alg spracovac;
-	spracovac.processData<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
+	Alg<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>> spracovac;
+	spracovac.processData(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
 		if (uj->data_->getOfficialTitle().find(vstup) != std::string::npos)
 			std::cout << uj->data_->getOfficialTitle() << std::endl;
 	});
-
 }
 
 void IS::startWith(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
@@ -396,16 +200,8 @@ void IS::startWith(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 {
 	std::string vstup;
 	std::cin >> vstup;
-	/*int i = 0;
-	for (auto start = uj->begin(); start != uj->end(); start++)
-	{
-		if (uj->access(i)->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
-			std::cout << uj->access(i)->data_->getOfficialTitle() << std::endl;
-		i++;
-	}*/
-
-	Alg spracovac;
-	spracovac.processData<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
+	Alg<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>> spracovac;
+	spracovac.processData/*<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>*/(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
 		if (uj->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
 			std::cout << uj->data_->getOfficialTitle() << std::endl;
 	});
@@ -484,26 +280,6 @@ ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* IS::changeDirectory(ds
 		return hierarchia_->accessSon(*curNode, stoi(vstup));
 }
 
-void IS::tabStart(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
-{
-	system("cls");
-	std::cout << "\t\tPREH¼ADÁVANIE V TABU¼KÁCH" << std::endl;
-	std::cout << "\nContains: ";
-	std::string vstup;
-	std::cin >> vstup;
-
-	if (tabulkaObci_->contains(vstup))
-	{
-		
-	}
-	
-}
-
-void IS::tabContains(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
-{
-
-}
-
 void IS::proc()
 {
 	system("cls");
@@ -521,8 +297,6 @@ void IS::proc()
 			std::string in;
 			std::cout << "> ";
 			std::cin >> in;
-			//std::cin.ignore();
-			//std::getline(std::cin, in);
 			if (in == "contains")
 				contains(kraje_);
 			else if (in == "start")
@@ -572,16 +346,9 @@ void IS::info(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 	std::string vyber;
 	std::cin >> vyber;
 	if (tabulkaNarodnosti_->contains(curNode->data_->getCode()))
-	{
-
 		tabulkaNarodnosti_->find(curNode->data_->getCode())->vypis(vyber);
-
-	}
 	if (curNode->data_->getCode().length() == 1)
-	{
-		std::string cod = curNode->data_->getNote().substr(5, 10);
 		tabulkaNarodnosti_->find(curNode->data_->getNote().substr(5, 10))->vypis(vyber);
-	}
 }
 
 void IS::tab()
@@ -743,7 +510,6 @@ void IS::sort()
 
 void IS::alpha(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 {
-
 	ds::amt::ImplicitSequence<std::string> pomocna;
 	int i = 0;
 	for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
@@ -842,13 +608,66 @@ void IS::vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 
 void IS::vowelsCount(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
+	if (hierarchia_->level(*curNode) == 0)
+	{
+		vowelsCount(kraje_);
+	}
+	else if (hierarchia_->level(*curNode) == 1)
+	{
+		int index = 0;
+		ds::amt::ImplicitSequence<std::string> pomocna;
+		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::cout << uj->data_->getOfficialTitle() << std::endl;
+			if (hierarchia_->level(*uj) == 2)
+			{
+				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
+			}
+			});
 
+		ds::adt::QuickSort<std::string> quickSort;
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			int pocetA = countVowels(a);
+			int pocetB = countVowels(b);
+			return pocetA > pocetB;
+		});
+
+		for (std::string element : pomocna)
+		{
+			std::cout << element << " : " << countVowels(element) << std::endl;
+		}
+	}
+	else if (hierarchia_->level(*curNode) == 2)
+	{
+		int index = 0;
+		ds::amt::ImplicitSequence<std::string> pomocna;
+		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
+			//std::cout << uj->data_->getOfficialTitle() << std::endl;
+			if (hierarchia_->level(*uj) == 3)
+			{
+				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
+			}
+		});
+
+		ds::adt::QuickSort<std::string> quickSort;
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			int pocetA = countVowels(a);
+			int pocetB = countVowels(b);
+			return pocetA > pocetB;
+			});
+
+		for (std::string element : pomocna)
+		{
+			std::cout << element << " : " << countVowels(element) << std::endl;
+		}
+	}
+	else if (hierarchia_->level(*curNode) == 3)
+		std::cout << "\t" << curNode->data_->getOfficialTitle() << " = " << hierarchia_->isLeaf(*curNode) << "(is leaf)" << std::endl;
 }
 
 int IS::countVowels(const std::string& str)
 {
 	int pocet = 0;
-	std::string samohlasky = "aeiouAEIOU";
+	std::string samohlasky = "aáäeéiíyýoóuúôAÁEÉIÍYÝOÓUÚ";
 	for (char pismeno : str)
 	{
 		if (samohlasky.find(pismeno) != std::string::npos)
