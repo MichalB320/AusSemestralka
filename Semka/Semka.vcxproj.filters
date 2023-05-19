@@ -51,6 +51,9 @@
     <ClCompile Include="STable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Triedic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IS.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="STable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triedic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

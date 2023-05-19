@@ -139,6 +139,7 @@
     <ClCompile Include="Semka.cpp" />
     <ClCompile Include="Slovensko.cpp" />
     <ClCompile Include="STable.cpp" />
+    <ClCompile Include="Triedic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alg.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Okres.h" />
     <ClInclude Include="Slovensko.h" />
     <ClInclude Include="STable.h" />
+    <ClInclude Include="Triedic.h" />
     <ClInclude Include="UzemnaJednotka.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

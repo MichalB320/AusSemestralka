@@ -5,6 +5,7 @@
 #include <chrono>
 #include <thread>
 #include "libds/adt/sorts.h"
+#include "Triedic.h"
 
 IS::IS()
 {
@@ -201,7 +202,7 @@ void IS::startWith(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 	std::string vstup;
 	std::cin >> vstup;
 	Alg<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>> spracovac;
-	spracovac.processData/*<ds::amt::ImplicitSequence<UzemnaJednotka*>*, ds::amt::MemoryBlock<UzemnaJednotka*>>*/(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
+	spracovac.processData(uj, [&](ds::amt::MemoryBlock<UzemnaJednotka*>* uj) {
 		if (uj->data_->getOfficialTitle().compare(0, vstup.length(), vstup) == 0)
 			std::cout << uj->data_->getOfficialTitle() << std::endl;
 	});
@@ -450,7 +451,7 @@ void IS::nacitajTabulky()
 void IS::sort()
 {
 	system("cls");
-	std::cout << "\t\tSOERTOVANIE" << std::endl;
+	std::cout << "\t\tSORTOVANIE" << std::endl;
 	bool running = true;
 	while (running)
 	{
@@ -511,157 +512,88 @@ void IS::sort()
 void IS::alpha(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 {
 	ds::amt::ImplicitSequence<std::string> pomocna;
-	int i = 0;
-	for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
-	{
-		pomocna.insertLast().data_ = uj->access(i)->data_->getOfficialTitle();
-		i++;
-	}
-
-	ds::adt::QuickSort<std::string> quickSort;
-	quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-		return a < b;
+	Triedic triedic;
+	triedic.pripravData(uj, pomocna, [&]() {
+		ds::adt::QuickSort<std::string> quickSort;
+		
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			return a < b;
+		});
 	});
-
-	for (auto element : pomocna)
-	{
-		std::cout << element << std::endl;
-	}
 }
 
 void IS::alpha(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
+	ds::amt::ImplicitSequence<UzemnaJednotka*>* pomocnaZHierarchie = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
+
 	if (hierarchia_->level(*curNode) == 0)
-	{
 		alpha(kraje_);
-	}
 	else if (hierarchia_->level(*curNode) == 1)
 	{
-		int index = 0;
-		ds::amt::ImplicitSequence<std::string> pomocna;
 		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-			//std::cout << uj->data_->getOfficialTitle() << std::endl;
 			if (hierarchia_->level(*uj) == 2)
-			{
-				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
-			}
+				pomocnaZHierarchie->insertLast().data_ = uj->data_;
 		});
-
-		ds::adt::QuickSort<std::string> quickSort;
-		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-			return a < b;
-			});
-
-		for (auto element : pomocna)
-		{
-			std::cout << element << std::endl;
-		}
 	}
 	else if (hierarchia_->level(*curNode) == 2)
 	{
-		int index = 0;
-		ds::amt::ImplicitSequence<std::string> pomocna;
 		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-			//std::cout << uj->data_->getOfficialTitle() << std::endl;
 			if (hierarchia_->level(*uj) == 3)
-			{
-				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
-			}
-			});
-
-		ds::adt::QuickSort<std::string> quickSort;
-		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-			return a < b;
+				pomocnaZHierarchie->insertLast().data_ = uj->data_;
 		});
-
-		for (auto element : pomocna)
-		{
-			std::cout << element << std::endl;
-		}
 	}
 	else if (hierarchia_->level(*curNode) == 3)
 		std::cout << "\t" << curNode->data_->getOfficialTitle() << " = " << hierarchia_->isLeaf(*curNode) << "(is leaf)" << std::endl;
+
+	if (pomocnaZHierarchie->begin() != pomocnaZHierarchie->end())
+		alpha(pomocnaZHierarchie);
+	pomocnaZHierarchie->clear();
+	delete pomocnaZHierarchie;
 }
 
 void IS::vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 {
 	ds::amt::ImplicitSequence<std::string> pomocna;
-	int i = 0;
-	for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
-	{
-		pomocna.insertLast().data_ = uj->access(i)->data_->getOfficialTitle();
-		i++;
-	}
+	Triedic triedic;
+	triedic.pripravData(uj, pomocna, [&]() {
 
-	ds::adt::QuickSort<std::string> quickSort;
-	quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-		int pocetA = countVowels(a);
-		int pocetB = countVowels(b);
-		return pocetA > pocetB;
+		ds::adt::QuickSort<std::string> quickSort;
+
+		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
+			int pocetA = countVowels(a);
+			int pocetB = countVowels(b);
+			return pocetA > pocetB;
+		});
 	});
-
-	for (std::string element : pomocna)
-	{
-		std::cout << element << " : " << countVowels(element) << std::endl;
-	}
 }
 
 void IS::vowelsCount(ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* curNode)
 {
+	ds::amt::ImplicitSequence<UzemnaJednotka*>* pomocnaZHierarchie = new ds::amt::ImplicitSequence<UzemnaJednotka*>();
+
 	if (hierarchia_->level(*curNode) == 0)
-	{
 		vowelsCount(kraje_);
-	}
 	else if (hierarchia_->level(*curNode) == 1)
 	{
-		int index = 0;
-		ds::amt::ImplicitSequence<std::string> pomocna;
 		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-			//std::cout << uj->data_->getOfficialTitle() << std::endl;
 			if (hierarchia_->level(*uj) == 2)
-			{
-				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
-			}
-			});
-
-		ds::adt::QuickSort<std::string> quickSort;
-		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-			int pocetA = countVowels(a);
-			int pocetB = countVowels(b);
-			return pocetA > pocetB;
+				pomocnaZHierarchie->insertLast().data_ = uj->data_;
 		});
-
-		for (std::string element : pomocna)
-		{
-			std::cout << element << " : " << countVowels(element) << std::endl;
-		}
 	}
 	else if (hierarchia_->level(*curNode) == 2)
 	{
-		int index = 0;
-		ds::amt::ImplicitSequence<std::string> pomocna;
 		hierarchia_->processLevelOrder(curNode, [&](ds::amt::MultiWayExplicitHierarchyBlock<UzemnaJednotka*>* uj) {
-			//std::cout << uj->data_->getOfficialTitle() << std::endl;
 			if (hierarchia_->level(*uj) == 3)
-			{
-				pomocna.insertLast().data_ = uj->data_->getOfficialTitle();
-			}
+				pomocnaZHierarchie->insertLast().data_ = uj->data_;
 		});
-
-		ds::adt::QuickSort<std::string> quickSort;
-		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
-			int pocetA = countVowels(a);
-			int pocetB = countVowels(b);
-			return pocetA > pocetB;
-			});
-
-		for (std::string element : pomocna)
-		{
-			std::cout << element << " : " << countVowels(element) << std::endl;
-		}
 	}
 	else if (hierarchia_->level(*curNode) == 3)
 		std::cout << "\t" << curNode->data_->getOfficialTitle() << " = " << hierarchia_->isLeaf(*curNode) << "(is leaf)" << std::endl;
+
+	if (pomocnaZHierarchie->begin() != pomocnaZHierarchie->end())
+		vowelsCount(pomocnaZHierarchie);
+	pomocnaZHierarchie->clear();
+	delete pomocnaZHierarchie;
 }
 
 int IS::countVowels(const std::string& str)
