@@ -562,7 +562,7 @@ void IS::vowelsCount(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj)
 		quickSort.sort(pomocna, [&](const std::string& a, const std::string& b) -> bool {
 			int pocetA = countVowels(a);
 			int pocetB = countVowels(b);
-			return pocetA > pocetB;
+			return pocetA < pocetB;
 		});
 	});
 }

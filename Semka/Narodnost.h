@@ -22,4 +22,3 @@ public:
 		//delete narodnosti;
 	}
 };
-

@@ -3,7 +3,6 @@
 #include "libds/adt/table.h"
 #include "Citac.h"
 #include "Narodnost.h"
-#include "STable.h"
 
 class IS
 {

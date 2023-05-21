@@ -9,7 +9,6 @@ private:
 public:
 	void pripravData(ds::amt::ImplicitSequence<UzemnaJednotka*>* uj, ds::amt::ImplicitSequence<std::string>& pomocna, std::function<void()> operation)
 	{
-		
 		int i = 0;
 		for (auto zaciatok = uj->begin(); zaciatok != uj->end(); zaciatok++)
 		{

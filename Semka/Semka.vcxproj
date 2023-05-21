@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alg.cpp" />
+    <ClCompile Include="Analyzer.cpp" />
     <ClCompile Include="Citac.cpp" />
     <ClCompile Include="IS.cpp" />
     <ClCompile Include="Kraj.cpp" />
@@ -138,11 +139,11 @@
     <ClCompile Include="Okres.cpp" />
     <ClCompile Include="Semka.cpp" />
     <ClCompile Include="Slovensko.cpp" />
-    <ClCompile Include="STable.cpp" />
     <ClCompile Include="Triedic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alg.h" />
+    <ClInclude Include="Analyzer.h" />
     <ClInclude Include="Citac.h" />
     <ClInclude Include="IS.h" />
     <ClInclude Include="Kraj.h" />
@@ -150,7 +151,6 @@
     <ClInclude Include="Obec.h" />
     <ClInclude Include="Okres.h" />
     <ClInclude Include="Slovensko.h" />
-    <ClInclude Include="STable.h" />
     <ClInclude Include="Triedic.h" />
     <ClInclude Include="UzemnaJednotka.h" />
   </ItemGroup>

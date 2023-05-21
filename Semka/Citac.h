@@ -3,7 +3,7 @@
 #include "libds/adt/table.h"
 #include "UzemnaJednotka.h"
 #include "Narodnost.h"
-#include "STable.h"
+
 
 class Citac
 {

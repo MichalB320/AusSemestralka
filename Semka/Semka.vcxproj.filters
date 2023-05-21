@@ -48,10 +48,10 @@
     <ClCompile Include="Alg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="STable.cpp">
+    <ClCompile Include="Triedic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Triedic.cpp">
+    <ClCompile Include="Analyzer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,10 +83,10 @@
     <ClInclude Include="Alg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="STable.h">
+    <ClInclude Include="Triedic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Triedic.h">
+    <ClInclude Include="Analyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
